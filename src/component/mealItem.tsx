@@ -7,7 +7,7 @@ export interface IAppProps {
 export interface IAppState {
 }
 
-export default class ealItem extends React.Component<IAppProps, IAppState> {
+export default class MealItem extends React.Component<IAppProps, IAppState> {
     constructor(props: IAppProps) {
         super(props);
 
