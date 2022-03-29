@@ -1,11 +1,11 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import MealItem from '../component/mealItem';
+import MealItems from '../component/Meal/mealItems';
 
 function App() {
   return (
-    <MealItem></MealItem>
+    <MealItems></MealItems>
   );
 }
 
