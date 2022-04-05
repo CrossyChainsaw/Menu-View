@@ -4,14 +4,15 @@ import { useState, useEffect } from "react";
 
 const apiUrl: string = 'http://127.0.0.1:8080/meals/all';
 
-// bijna zelfde naam als MealItem
 type mealItem = {
     mealId: number;
+    imgSrc: string;
     mealName: string;
+    categoryId: number;
     mealPrice: number;
 };
 
-export default function App() {
+export default function MealItems() {
     const [result, setResult] = useState<mealItem[]>([]);
 
     useEffect(() => {
@@ -22,20 +23,18 @@ export default function App() {
             const jsonData = await data.json();
             setResult(jsonData);
         };
-
         api();
     }, []);
 
     return (
-        <div className="App">
-            <h1>
+        <div className="container">
+            <div className="row">
                 {result.map((value) => {
                     return (
-                        <MealItem mealId={value.mealId} name={value.mealName} price={value.mealPrice} />
+                        <MealItem key={value.mealId} mealId={value.mealId} categoryId={value.categoryId} imgSrc={value.imgSrc} name={value.mealName} price={value.mealPrice} />
                     );
                 })}
-            </h1>
-            <h2>meals page</h2>
+            </div>
         </div>
     );
 }

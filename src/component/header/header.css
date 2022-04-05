@@ -5,9 +5,11 @@
 .imageMoment {
   position: absolute;
   width: 100%;
+  height: 40%;
 }
 
 .App-header {
+  margin-bottom: 7%;
   margin-top: 0%;
   flex-direction: column;
   align-items: center;
@@ -19,8 +21,12 @@
   color: whitesmoke;
 }
 
+.somePaddingTop {
+  padding-top: 3%;
+}
+
 .description {
-    font-size: calc(2vw);
+  font-size: calc(2vw);
 }
 
 .Food-banner {
