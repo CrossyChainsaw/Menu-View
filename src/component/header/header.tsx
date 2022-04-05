@@ -15,7 +15,7 @@ export default class Header extends Component<Props, State> {
                 </div>
                 <div className="App-header">
                     <h1 className='somePaddingTop'>Menu</h1>
-                    <p className='description'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem reprehenderit odio, quibusdam sed, dignissimos laboriosam autem asperiores aut molestiae ab sequi! Sint minima, officiis quas cupiditate sunt quisquam error quod?</p>
+                    <p className='description'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem reprehenderit odio, quibusdam sed, kaas dignissimos laboriosam autem asperiores aut molestiae ab sequi! Sint minima, officiis quas cupiditate sunt quisquam error quod?</p>
                 </div>
             </div>
         )

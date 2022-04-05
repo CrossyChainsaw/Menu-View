@@ -3,33 +3,35 @@ import CategoryItem from './categoryItem';
 import MealItems from '../Meal/mealItems';
 import { useState, useEffect } from "react";
 
-const apiUrl: string = '127.0.0.1:8080/meals/all';
+const apiUrl: string = 'http://localhost:8080/categories/all';
+
+export interface Category {
+    categoryId: number,
+    categoryName: string
+}
 
 export default function CategoryItems() {
-    const [categoryResult, setCategoryResult] = useState<CategoryItem[]>([]);
+    const [categoryResult, setCategoryResult] = useState<Category[]>([]);
     useEffect(() => {
         const api = async () => {
-            const data = await fetch(apiUrl, {
-                method: "GET"
-            });
+            const data = await fetch(apiUrl);
             const jsonData = await data.json();
             setCategoryResult(jsonData);
         };
         api();
-
-        {
-            categoryResult.map((value) => {
-                return (
-                    <CategoryItem key={value.categoryId} categoryId={value.categoryId} categoryName={value.categoryName} />
-                    // <MealItems></MealItems>
-                );
-            })
-        }
     }, []);
 
     return (
         <div>
-
+            {
+                categoryResult.map((category) => {
+                    return (
+                        <div>
+                            <CategoryItem key={category.categoryId} categoryId={category.categoryId} categoryName={category.categoryName} />
+                            <MealItems categoryId={category.categoryId}></MealItems>
+                        </div>
+                    );
+                })}
         </div>
     );
 }

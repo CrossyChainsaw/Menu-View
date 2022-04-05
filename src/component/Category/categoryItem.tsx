@@ -3,8 +3,8 @@ import { Card } from 'react-bootstrap';
 import './category.css'
 
 export interface IAppProps {
-    categoryName: any,
     categoryId: any,
+    categoryName: any,
 }
 
 export interface IAppState {
@@ -23,7 +23,10 @@ export default class CategoryItem extends React.Component<IAppProps, IAppState> 
     public render() {
         return (
             <div>
-                {this.props.categoryName}
+                <hr></hr>
+                <h1 className='center'>
+                    {this.props.categoryName}
+                </h1>
             </div>
         );
     }

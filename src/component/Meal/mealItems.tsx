@@ -3,9 +3,12 @@ import MealItem from './mealItem';
 import { useState, useEffect } from "react";
 
 const apiUrl: string = 'http://127.0.0.1:8080/meals/all';
+type Props = {
+    categoryId: number
+};
 
-export default function MealItems() {
-    const [result, setResult] = useState<MealItem[]>([]);
+export default function MealItems(categoryId: Props) {
+    const [results, setResults] = useState<MealItem[]>([]);
 
     useEffect(() => {
         const api = async () => {
@@ -13,17 +16,19 @@ export default function MealItems() {
                 method: "GET"
             });
             const jsonData = await data.json();
-            setResult(jsonData);
+            setResults(jsonData);
         };
         api();
     }, []);
 
+    console.log(results.map(category => category)[0]);
+    console.log(categoryId);
     return (
         <div className="container">
             <div className="row">
-                {result.map((value) => {
+                {results.filter(meal => categoryId.categoryId === meal.categoryId).map((meal) => {
                     return (
-                        <MealItem key={value.mealId} mealId={value.mealId} categoryId={value.categoryId} imgSrc={value.imgSrc} mealName={value.mealName} mealPrice={value.mealPrice} />
+                        <MealItem key={meal.mealId} mealId={meal.mealId} categoryId={meal.categoryId} imgSrc={meal.imgSrc} mealName={meal.mealName} mealPrice={meal.mealPrice} />
                     );
                 })}
             </div>

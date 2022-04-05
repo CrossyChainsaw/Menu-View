@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Card } from 'react-bootstrap';
 import './meal.css'
 
 export interface IAppProps {
@@ -30,13 +31,13 @@ export default class MealItem extends React.Component<IAppProps, IAppState> {
     public render() {
         return (
             <div className="col-sm-3">
-                <div className="card">
-                    <div className="card-body">
-                        <img className='bigWidth' src={this.props.imgSrc}></img>
+                <Card>
+                    <div className="card-body p-0">
+                        <img w-100 className='bigWidth' src={this.props.imgSrc}></img>
                         <h5 className="card-title">€{this.props.mealPrice}</h5>
                         <p className="card-text">{this.props.mealName}</p>
                     </div>
-                </div>
+                </Card>
             </div>
         );
     }
