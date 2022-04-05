@@ -1,13 +1,12 @@
 import * as React from 'react';
-import { Card } from 'react-bootstrap';
 import './meal.css'
 
 export interface IAppProps {
     mealId: any,
     imgSrc: any,
-    name: any,
+    mealName: any,
     categoryId: any,
-    price: any
+    mealPrice: any
 }
 
 
@@ -16,6 +15,11 @@ export interface IAppState {
 }
 
 export default class MealItem extends React.Component<IAppProps, IAppState> {
+    mealId: React.Key | null | undefined;
+    categoryId: any;
+    imgSrc: any;
+    mealName: any;
+    mealPrice: any;
     constructor(props: any) {
         super(props);
 
@@ -29,8 +33,8 @@ export default class MealItem extends React.Component<IAppProps, IAppState> {
                 <div className="card">
                     <div className="card-body">
                         <img className='bigWidth' src={this.props.imgSrc}></img>
-                        <h5 className="card-title">€{this.props.price}</h5>
-                        <p className="card-text">{this.props.name}</p>
+                        <h5 className="card-title">€{this.props.mealPrice}</h5>
+                        <p className="card-text">{this.props.mealName}</p>
                     </div>
                 </div>
             </div>

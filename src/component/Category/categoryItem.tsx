@@ -11,6 +11,8 @@ export interface IAppState {
 }
 
 export default class CategoryItem extends React.Component<IAppProps, IAppState> {
+    categoryId: React.Key | null | undefined;
+    categoryName: any;
     constructor(props: any) {
         super(props);
 

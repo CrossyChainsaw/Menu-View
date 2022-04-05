@@ -4,16 +4,8 @@ import { useState, useEffect } from "react";
 
 const apiUrl: string = 'http://127.0.0.1:8080/meals/all';
 
-type mealItem = {
-    mealId: number;
-    imgSrc: string;
-    mealName: string;
-    categoryId: number;
-    mealPrice: number;
-};
-
 export default function MealItems() {
-    const [result, setResult] = useState<mealItem[]>([]);
+    const [result, setResult] = useState<MealItem[]>([]);
 
     useEffect(() => {
         const api = async () => {
@@ -31,7 +23,7 @@ export default function MealItems() {
             <div className="row">
                 {result.map((value) => {
                     return (
-                        <MealItem key={value.mealId} mealId={value.mealId} categoryId={value.categoryId} imgSrc={value.imgSrc} name={value.mealName} price={value.mealPrice} />
+                        <MealItem key={value.mealId} mealId={value.mealId} categoryId={value.categoryId} imgSrc={value.imgSrc} mealName={value.mealName} mealPrice={value.mealPrice} />
                     );
                 })}
             </div>
