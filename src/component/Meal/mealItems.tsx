@@ -1,6 +1,7 @@
 import * as React from 'react';
+import { useState, useEffect, Key } from "react";
+import { Meal } from '../../interfaces/Meal';
 import MealItem from './mealItem';
-import { useState, useEffect } from "react";
 
 const apiUrl: string = 'http://127.0.0.1:8080/meals/all';
 type Props = {
@@ -8,7 +9,7 @@ type Props = {
 };
 
 export default function MealItems(categoryId: Props) {
-    const [results, setResults] = useState<MealItem[]>([]);
+    const [results, setResults] = useState<Meal[]>([]);
 
     useEffect(() => {
         const api = async () => {
@@ -22,13 +23,12 @@ export default function MealItems(categoryId: Props) {
     }, []);
 
     console.log(results.map(category => category)[0]);
-    console.log(categoryId);
     return (
         <div className="container">
             <div className="row">
                 {results.filter(meal => categoryId.categoryId === meal.categoryId).map((meal) => {
                     return (
-                        <MealItem key={meal.mealId} mealId={meal.mealId} categoryId={meal.categoryId} imgSrc={meal.imgSrc} mealName={meal.mealName} mealPrice={meal.mealPrice} />
+                        <MealItem key={meal.categoryId as Key} meal={meal} />
                     );
                 })}
             </div>
