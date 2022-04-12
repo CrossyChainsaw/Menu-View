@@ -1,17 +1,15 @@
 import * as React from 'react';
+import { useState, useEffect, Key } from "react";
+import { Drink } from '../../interfaces/Drink';
 import DrinkItem from './drinkItem';
-import { useState, useEffect } from "react";
 
 const apiUrl: string = 'http://127.0.0.1:8080/drinks/all';
-
-type drinkItem = {
-    drinkId: number;
-    drinkName: string;
-    drinkPrice: number;
+type Props = {
+    categoryId: number
 };
 
-export default function App() {
-    const [result, setResult] = useState<drinkItem[]>([]);
+export default function MealItems(categoryId: Props) {
+    const [results, setResults] = useState<Drink[]>([]);
 
     useEffect(() => {
         const api = async () => {
@@ -19,22 +17,23 @@ export default function App() {
                 method: "GET"
             });
             const jsonData = await data.json();
-            setResult(jsonData);
+            setResults(jsonData);
+            console.log(jsonData);
         };
-
+        console.log(results);
         api();
     }, []);
 
+    console.log(results.map(category => category)[0]);
     return (
-        <div className="App">
-            <h1>
-                {result.map((value) => {
+        <div className="container">
+            <div className="row">
+                {results.filter(drink => categoryId.categoryId === drink.categoryId).map((drink) => {
                     return (
-                        <DrinkItem id={value.drinkId} name={value.drinkName} price={value.drinkPrice} />
+                        <DrinkItem key={drink.categoryId as Key} drink={drink} />
                     );
                 })}
-            </h1>
-            <h2>drinks page</h2>
+            </div>
         </div>
     );
 }

@@ -7,8 +7,7 @@ export interface IAppProps {
     categoryName: any,
 }
 
-export interface IAppState {
-}
+export interface IAppState {}
 
 export default class CategoryItem extends React.Component<IAppProps, IAppState> {
     categoryId: React.Key | null | undefined;
@@ -16,8 +15,7 @@ export default class CategoryItem extends React.Component<IAppProps, IAppState> 
     constructor(props: any) {
         super(props);
 
-        this.state = {
-        }
+        this.state = {}
     }
 
     public render() {

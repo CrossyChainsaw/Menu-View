@@ -2,6 +2,7 @@ import * as React from 'react';
 import CategoryItem from './categoryItem';
 import MealItems from '../Meal/mealItems';
 import { useState, useEffect } from "react";
+import DrinkItems from '../Drink/drinkItems';
 
 const apiUrl: string = 'http://localhost:8080/categories/all';
 
@@ -29,6 +30,7 @@ export default function CategoryItems() {
                         <div>
                             <CategoryItem key={category.categoryId} categoryId={category.categoryId} categoryName={category.categoryName} />
                             <MealItems categoryId={category.categoryId}></MealItems>
+                            <DrinkItems categoryId={category.categoryId}></DrinkItems>
                         </div>
                     );
                 })}
