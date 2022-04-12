@@ -10,7 +10,6 @@ function Appr() {
     <div>
       <Header></Header>
       <CategoryItems></CategoryItems>
-      {/*check CategoryItems for MealItems render*/}
     </div>
   );
 }

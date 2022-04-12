@@ -1,18 +1,17 @@
 import * as React from 'react';
 import { Card } from 'react-bootstrap';
+import { Drink } from '../../interfaces/Drink';
+import './drink.css'
 
-export interface IAppProps {
-    id: any,
-    name: any,
-    price: any
-
+interface IAppProps {
+    drink: Drink
 }
 
-export interface IAppState {
+interface IAppState {
 }
 
-export default class DrinkItem extends React.Component<IAppProps, IAppState> {
-    constructor(props: IAppProps) {
+export default class MealItem extends React.Component<IAppProps, IAppState> {
+    constructor(props: any) {
         super(props);
 
         this.state = {
@@ -21,12 +20,17 @@ export default class DrinkItem extends React.Component<IAppProps, IAppState> {
 
     public render() {
         return (
-            <Card>
-                <Card.Body className='card-body' >
-                    <span className='float-right font-weight-bold'>{this.props.price}</span>
-                    <h6 className="text-truncate">{this.props.name}</h6>
-                    <p className="small">Tito's Vodka and White Créme de Cacao dusted with hand shaved chocolate.</p>                      </Card.Body>
-            </Card>
+            <div className="col-sm-3">
+                <Card>
+                    <div className="card-body p-0">
+                        <img className='bigWidth' src={this.props.drink.img_Src}></img>
+                        <h5 className="card-title">€{this.props.drink.drinkPrice}</h5>
+                        <p className="card-text">{this.props.drink.drinkName}</p>
+                    </div>
+                </Card>
+            </div>
         );
     }
 }
+
+
