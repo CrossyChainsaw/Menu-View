@@ -1,5 +1,5 @@
 export interface Drink {
-    CategoryId: Number,
+CategoryId: Number,
 categoryId: Number,
 img_Src: string,
 drinkId: Number,

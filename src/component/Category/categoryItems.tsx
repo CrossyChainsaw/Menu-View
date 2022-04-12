@@ -1,4 +1,3 @@
-import * as React from 'react';
 import CategoryItem from './categoryItem';
 import MealItems from '../Meal/mealItems';
 import { useState, useEffect } from "react";

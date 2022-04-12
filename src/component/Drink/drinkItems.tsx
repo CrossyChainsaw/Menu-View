@@ -4,6 +4,7 @@ import { Drink } from '../../interfaces/Drink';
 import DrinkItem from './drinkItem';
 
 const apiUrl: string = 'http://127.0.0.1:8080/drinks/all';
+
 type Props = {
     categoryId: number
 };
