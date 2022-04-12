@@ -22,7 +22,7 @@ export default class CategoryItem extends React.Component<IAppProps, IAppState> 
         return (
             <div>
                 <hr></hr>
-                <h1 className='center'>
+                <h1 className='center-text'>
                     {this.props.categoryName}
                 </h1>
             </div>

@@ -14,8 +14,7 @@ export default class MealItem extends React.Component<IAppProps, IAppState> {
     constructor(props: any) {
         super(props);
 
-        this.state = {
-        }
+        this.state = {}
     }
 
     public render() {
@@ -23,7 +22,7 @@ export default class MealItem extends React.Component<IAppProps, IAppState> {
             <div className="col-sm-3">
                 <Card>
                     <div className="card-body p-0">
-                        <img className='bigWidth' src={this.props.drink.img_Src}></img>
+                        <img className='drink-image' src={this.props.drink.img_Src}></img>
                         <h5 className="card-title">€{this.props.drink.drinkPrice}</h5>
                         <p className="card-text">{this.props.drink.drinkName}</p>
                     </div>

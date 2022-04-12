@@ -1,5 +1,5 @@
 export interface Meal {
-    CategoryId: Number,
+CategoryId: Number,
 categoryId: Number,
 img_Src: string,
 mealId: Number,
