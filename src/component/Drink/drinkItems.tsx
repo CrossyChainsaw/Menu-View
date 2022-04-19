@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { useState, useEffect, Key } from "react";
 import { Drink } from '../../interfaces/Drink';
 import DrinkItem from './drinkItem';

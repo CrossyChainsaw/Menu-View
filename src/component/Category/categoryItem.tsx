@@ -1,22 +1,15 @@
-import * as React from 'react';
-import { Card } from 'react-bootstrap';
+import React from 'react';
+import { Category } from '../../interfaces/Category';
 import './category.css'
 
-export interface IAppProps {
-    categoryId: any,
-    categoryName: any,
-}
-
-export interface IAppState {}
-
-export default class CategoryItem extends React.Component<IAppProps, IAppState> {
+export default class CategoryItem extends React.Component<Category> {
     categoryId: React.Key | null | undefined;
     categoryName: any;
-    constructor(props: any) {
-        super(props);
+    // constructor(props: any) {
+    //     super(props);
 
-        this.state = {}
-    }
+    //     this.state = {}
+    // }
 
     public render() {
         return (

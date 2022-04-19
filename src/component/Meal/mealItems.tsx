@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { useState, useEffect, Key } from "react";
 import { Meal } from '../../interfaces/Meal';
 import MealItem from './mealItem';

@@ -1,11 +1,7 @@
-import React, { Component } from 'react'
-import { Meal } from '../../interfaces/Meal';
+import { Component } from 'react'
 import './header.css';
 
-type Props = {}
-type State = {}
-
-export default class Header extends Component<Props, State> {
+export default class Header extends Component {
     render() {
 
         return (
