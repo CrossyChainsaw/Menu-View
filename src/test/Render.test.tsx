@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import App from './App';
 import CategoryItems from '../component/Category/categoryItems';
 import DrinkItems from '../component/Drink/drinkItems';
 import DrinkItem from '../component/Drink/drinkItem';
@@ -10,7 +9,9 @@ import MealItems from '../component/Meal/mealItems';
 import { Meal } from '../interfaces/Meal';
 import MealItem from '../component/Meal/mealItem';
 import Header from '../component/header/header';
+import App from '../app/App';
 
+// Render All
 test("render App.tsx", () => {
   render(<App />)
 })

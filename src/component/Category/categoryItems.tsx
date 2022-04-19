@@ -3,7 +3,7 @@ import MealItems from '../Meal/mealItems';
 import { useState, useEffect } from "react";
 import DrinkItems from '../Drink/drinkItems';
 
-const apiUrl: string = 'http://localhost:8080/categories/all';
+export const apiUrl: string = 'http://localhost:8080/categories/all';
 
 export interface Category {
     categoryId: number,

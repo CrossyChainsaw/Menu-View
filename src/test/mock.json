@@ -1,0 +1,26 @@
+[
+    {
+        "mealId": 1,
+        "mealName": "Burger",
+        "mealPrice": 4.99,
+        "categoryId": 2,
+        "CategoryId": 2,
+        "img_Src": "BurgerImage"
+    },
+    {
+        "mealId": 2,
+        "mealName": "Tiramisu",
+        "mealPrice": 4.99,
+        "categoryId": 3,
+        "CategoryId": 3,
+        "img_Src": "TiramisuImage"
+    },
+    {
+        "mealId": 3,
+        "mealName": "CarrotSoup",
+        "mealPrice": 4.99,
+        "categoryId": 1,
+        "CategoryId": 1,
+        "img_Src": "CarrotSoupImage"
+    }
+]

@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
+import { Meal } from '../../interfaces/Meal';
 import './header.css';
 
 type Props = {}
 type State = {}
 
 export default class Header extends Component<Props, State> {
-    state = {}
-
     render() {
+
         return (
             <div className="center-text">
                 <div className='absolute-banner-div'>

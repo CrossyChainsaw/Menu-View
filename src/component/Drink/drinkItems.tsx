@@ -19,13 +19,10 @@ export default function MealItems(categoryId: Props) {
             });
             const jsonData = await data.json();
             setResults(jsonData);
-            console.log(jsonData);
         };
-        console.log(results);
         api();
     }, []);
 
-    console.log(results.map(category => category)[0]);
     return (
         <div className="container">
             <div className="row">
