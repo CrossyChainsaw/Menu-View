@@ -9,7 +9,7 @@ import CategoryItem from '../component/Category/categoryItem';
 import MealItems from '../component/Meal/mealItems';
 import { Meal } from '../interfaces/Meal';
 import MealItem from '../component/Meal/mealItem';
-import Header from '../component/Header/header';
+import Header from '../component/header/header';
 
 test("render App.tsx", () => {
   render(<App />)
