@@ -22,7 +22,6 @@ export default function MealItems(categoryId: Props) {
         api();
     }, []);
 
-    console.log(results.map(category => category)[0]);
     return (
         <div className="container">
             <div className="row">
