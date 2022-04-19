@@ -2,13 +2,9 @@ import CategoryItem from './categoryItem';
 import MealItems from '../Meal/mealItems';
 import { useState, useEffect } from "react";
 import DrinkItems from '../Drink/drinkItems';
+import { Category } from '../../interfaces/Category';
 
 export const apiUrl: string = 'http://localhost:8080/categories/all';
-
-export interface Category {
-    categoryId: number,
-    categoryName: string
-}
 
 export default function CategoryItems() {
     const [categoryResult, setCategoryResult] = useState<Category[]>([]);
