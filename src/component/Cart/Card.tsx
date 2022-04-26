@@ -11,7 +11,7 @@ interface IProps {
 interface IState {
     items: any[];
     amount: number;
-    
+
 }
 
 class Card extends React.Component<IProps, IState> {
@@ -64,7 +64,7 @@ class Card extends React.Component<IProps, IState> {
                         </button>
 
                         <input id="form1" min="0" name="quantity" value={this.state.amount} type="number"
-                            className="form-control form-control-sm" />
+                            className="form-control form-control-sm-4" />
 
                         <button className="btn btn-link px-2"
                             onClick={this.doMore}>

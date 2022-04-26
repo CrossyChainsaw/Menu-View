@@ -7,7 +7,7 @@ import Header from '../component/header/header';
 import ShoppingCart from '../component/Cart/ShoppingCart';
 
 
-function App() {
+export default function App() {
   const [show, setShow] = useState<boolean>(false);
   if (!show) {
     return (<div className='menu'>
@@ -16,14 +16,10 @@ function App() {
       <button onClick={() => setShow(true)}> hey </button>
     </div>);
   }
-  else{
+  else {
     return (<div className='menu'>
       <ShoppingCart></ShoppingCart>
       <button onClick={() => setShow(false)}> hey </button>
     </div>);
   }
-
-  
 }
-
-export default App;

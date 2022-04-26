@@ -6,8 +6,9 @@ import Card from './Card';
 // import { useCookies } from "react-cookie";
 import { Order } from '../../interfaces/Order'
 import { Product } from '../../interfaces/Product';
+import { productArray } from '../Meal/mealItem';
 
-interface IProps {}
+interface IProps { }
 
 interface IState {
     amount: number;
@@ -16,9 +17,6 @@ interface IState {
     order: Order;
     products: Product[];
 }
-
-
-// const [cookies, setCookie] = useCookies();
 
 class Cart extends React.Component<IProps, IState> {
     constructor(props: any) {
@@ -66,7 +64,8 @@ class Cart extends React.Component<IProps, IState> {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 "tableId": order.tableId,
-                "products": order.products})
+                "products": order.products
+            })
         }).then(response => console.log(response.json()))
     }
 
@@ -75,7 +74,7 @@ class Cart extends React.Component<IProps, IState> {
     }
 
     Test = () => {
-        this.NewProduct({ name: "Burgor", amount: 1, price: 10 })
+        //this.NewProduct({ name: "Burgor", amount: 1, price: 10, imgSrc: "someimgsrc" })
         this.CalculateTotalPrice();
 
     }
@@ -86,8 +85,22 @@ class Cart extends React.Component<IProps, IState> {
         console.log(this.state.order);
     }
 
-    componentDidMount() {
-        //this.GetData();
+
+
+
+
+
+
+    getTotalPrice() {
+        let totalPrice: number = 0;
+        productArray.map((product) => {
+            totalPrice += product.price;
+        })
+        return totalPrice;
+    }
+
+    LogProducts() {
+        console.log(productArray);
     }
 
     render() {
@@ -103,14 +116,14 @@ class Cart extends React.Component<IProps, IState> {
                                             <div className="p-5">
                                                 <div className="d-flex justify-content-between align-items-center mb-5">
                                                     <h1 className="fw-bold mb-0 text-black">Bestelling voor tafel {this.state.tableId}</h1>
-                                                    <h6 className="mb-0 text-muted">{this.state.products.length} items</h6>
+                                                    <h6 className="mb-0 text-muted">{productArray.length} items</h6>
                                                 </div>
-                                                {this.state.products.map((product) =>
-                                                    <Card name={product.name} imgSrc='logo192.png' price={product.price} />
+                                                {productArray.map((product) =>
+                                                    <Card name={product.name} imgSrc={product.imgSrc} price={product.price} />
                                                 )}
                                                 <div className="d-flex justify-content-between mb-5">
                                                     <h5 className="text-uppercase">Totaal</h5>
-                                                    <h5>€  {this.state.totalPrice}  </h5>
+                                                    <h5>€  {this.getTotalPrice()}  </h5>
                                                 </div>
                                                 <button type="button" className="btn btn-dark btn-block btn-lg" id="btn-order"
                                                     data-mdb-ripple-color="dark" onClick={() => this.PostData(this.state.order)}>Bestel</button>
@@ -125,6 +138,7 @@ class Cart extends React.Component<IProps, IState> {
                 <div>
                     <button onClick={() => this.Test()}> burgor </button>
                     <button onClick={() => this.Test2()}>shak</button>
+                    <button onClick={() => this.LogProducts()}>Log current order</button>
                 </div>
             </section>
         );

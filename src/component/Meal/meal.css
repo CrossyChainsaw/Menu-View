@@ -9,7 +9,7 @@
   height: 70%;
 }
 
-.card:hover {
+.meal-image-effect:hover {
   filter: brightness(94%);
   transform: scale(1.05);
   transition: filter 0.4s, transform 0.4s;
