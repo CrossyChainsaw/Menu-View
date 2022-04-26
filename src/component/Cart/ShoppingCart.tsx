@@ -1,6 +1,5 @@
-//import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React from 'react';
 import Card from './Card';
 // import { convertCompilerOptionsFromJson, isTemplateSpan } from 'typescript';
 // import { useCookies } from "react-cookie";
@@ -15,7 +14,7 @@ interface IState {
     totalPrice: number;
     tableId: number;
     order: Order;
-    products: Product[];
+    //products: Product[];
 }
 
 class Cart extends React.Component<IProps, IState> {
@@ -27,80 +26,38 @@ class Cart extends React.Component<IProps, IState> {
             totalPrice: 0,
             tableId: 0,
             order: { id: 1, tableId: 1, price: 0, products: [] },
-            products: []
+            //products: []
         }
     }
 
-    NewProduct = (product: Product) => {
-        this.setState({ products: [...this.state.products, product] })
-    }
 
-    CalculateTotalPrice = () => {
-        this.state.products.forEach(product => {
-            this.setState({ totalPrice: product.price + this.state.totalPrice })
-            console.log(this.state.totalPrice)
+
+
+    RemoveFromProductArray(product: Product) {
+        productArray.forEach((element, index) => {
+            if (element == product) delete productArray[index];
         });
     }
-
-    GetData = () => {
-        fetch('http://localhost:8081/api/v1/products')
-            .then(response => response.json())
-            .then((data) => {
-                this.setState({
-                    products: data
-                })
-            });
-    }
-
-    SetOrder = () => {
-        this.setState({ order: { id: 2, tableId: 2, price: this.state.totalPrice, products: this.state.products } })
-    }
-
-    PostData = (order: Order) => {
-        console.table(order)
-        console.log(JSON.stringify(order))
-        fetch('http://localhost:8081/api/v1/order', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                "tableId": order.tableId,
-                "products": order.products
-            })
-        }).then(response => console.log(response.json()))
-    }
-
-    TestPost = () => {
-        this.PostData(this.state.order);
-    }
-
-    Test = () => {
-        //this.NewProduct({ name: "Burgor", amount: 1, price: 10, imgSrc: "someimgsrc" })
-        this.CalculateTotalPrice();
-
-    }
-
-    Test2 = () => {
-        this.CalculateTotalPrice();
-        this.SetOrder();
-        console.log(this.state.order);
-    }
-
-
-
-
-
-
 
     getTotalPrice() {
         let totalPrice: number = 0;
         productArray.map((product) => {
-            totalPrice += product.price;
+            totalPrice += product.totalPrice;
         })
+        totalPrice = Math.round((totalPrice + Number.EPSILON) * 100) / 100;
         return totalPrice;
     }
 
     LogProducts() {
         console.log(productArray);
+    }
+
+    x: number = 0;
+    GetTotalItemsAmount() {
+        productArray.map((p) => {
+            this.x += p.amount;
+        })
+        return this.x;
     }
 
     render() {
@@ -116,17 +73,17 @@ class Cart extends React.Component<IProps, IState> {
                                             <div className="p-5">
                                                 <div className="d-flex justify-content-between align-items-center mb-5">
                                                     <h1 className="fw-bold mb-0 text-black">Bestelling voor tafel {this.state.tableId}</h1>
-                                                    <h6 className="mb-0 text-muted">{productArray.length} items</h6>
+                                                    <h6 className="mb-0 text-muted">{this.GetTotalItemsAmount()} items</h6>
                                                 </div>
                                                 {productArray.map((product) =>
-                                                    <Card name={product.name} imgSrc={product.imgSrc} price={product.price} />
+                                                    <Card id={product.id} name={product.name} imgSrc={product.imgSrc} totalPrice={product.totalPrice} amount={product.amount} singlePrice={product.singlePrice} />
                                                 )}
                                                 <div className="d-flex justify-content-between mb-5">
                                                     <h5 className="text-uppercase">Totaal</h5>
                                                     <h5>€  {this.getTotalPrice()}  </h5>
                                                 </div>
                                                 <button type="button" className="btn btn-dark btn-block btn-lg" id="btn-order"
-                                                    data-mdb-ripple-color="dark" onClick={() => this.PostData(this.state.order)}>Bestel</button>
+                                                    data-mdb-ripple-color="dark">Bestel</button>
                                             </div>
                                         </div>
                                     </div>
@@ -136,8 +93,8 @@ class Cart extends React.Component<IProps, IState> {
                     </div>
                 </div>
                 <div>
-                    <button onClick={() => this.Test()}> burgor </button>
-                    <button onClick={() => this.Test2()}>shak</button>
+                    <button> burgor </button>
+                    <button>shak</button>
                     <button onClick={() => this.LogProducts()}>Log current order</button>
                 </div>
             </section>
