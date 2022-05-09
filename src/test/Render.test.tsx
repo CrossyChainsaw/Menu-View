@@ -28,7 +28,7 @@ test("render drinkItems.tsx", () => {
   render(<DrinkItems categoryId={0} />)
 })
 test("render mealItem.tsx", () => {
-  let meal1: Meal = { categoryId: 0, CategoryId: 0, mealId: 0, mealName: "mealItemTest", mealPrice: 0.00, img_Src: "mealItemTest" }
+  let meal1: Meal = { categoryId: 0, CategoryId: 0, mealId: 0, mealName: "mealItemTest", mealPrice: 0.00, img_Src: "mealItemTest", isDrink: false }
   render(<MealItem meal={meal1} />)
 })
 test("render mealItems.tsx", () => {

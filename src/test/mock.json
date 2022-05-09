@@ -5,7 +5,8 @@
         "mealPrice": 4.99,
         "categoryId": 2,
         "CategoryId": 2,
-        "img_Src": "BurgerImage"
+        "img_Src": "BurgerImage",
+        "isDrink": false
     },
     {
         "mealId": 2,
@@ -13,7 +14,8 @@
         "mealPrice": 4.99,
         "categoryId": 3,
         "CategoryId": 3,
-        "img_Src": "TiramisuImage"
+        "img_Src": "TiramisuImage",
+        "isDrink": false
     },
     {
         "mealId": 3,
@@ -21,6 +23,16 @@
         "mealPrice": 4.99,
         "categoryId": 1,
         "CategoryId": 1,
-        "img_Src": "CarrotSoupImage"
+        "img_Src": "CarrotSoupImage",
+        "isDrink": false
+    },
+    {
+        "CategoryId": 4,
+        "categoryId": 1,
+        "img_Src": "CarrotSoupImage",
+        "mealId": 1,
+        "mealName": "CarrotSoup",
+        "mealPrice": 4.99,
+        "isDrink": false
     }
 ]

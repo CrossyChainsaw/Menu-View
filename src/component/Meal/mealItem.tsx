@@ -20,8 +20,8 @@ function AddMeal(meal: Meal) {
         singlePrice: Math.round((meal.mealPrice + Number.EPSILON) * 100) / 100,
         totalPrice: meal.mealPrice,
         amount: 1,
-        imgSrc: meal.img_Src,
-        id: meal.mealId
+        imgSrc: meal.img_Src, 
+        isDrink: meal.isDrink
     }
     // als prudct niet bestaat toebveogen als wel bestaat amount++
     AddProduct(product);
@@ -42,13 +42,10 @@ export function AddProduct(product: Product) {
     console.log(productArray);
 }
 
-function test() {
-    React.useEffect(() => {
-    }, [productArray]);
-}
+
 
 function ProductWasAlreadyAdded(product: Product) {
-    return productArray.some((p) => p.id == product.id)
+    return productArray.some((p) => p.name == product.name)
 }
 
 function DeleteFromArrayIfAmountIsZero(product: Product) {
@@ -62,7 +59,7 @@ function DeleteFromArrayIfAmountIsZero(product: Product) {
 
 export function RemoveAmountOfExisitingProduct(product: Product) {
     productArray.forEach((p) => {
-        if (p.id == product.id) {
+        if (p.name == product.name) {
             p.amount--;
             p.totalPrice -= product.singlePrice;
             DeleteFromArrayIfAmountIsZero(p);
@@ -73,7 +70,7 @@ export function RemoveAmountOfExisitingProduct(product: Product) {
 
 function AddAmountToExisitingProduct(product: Product) {
     productArray.forEach((p) => {
-        if (p.id == product.id) {
+        if (p.name == product.name) {
             p.amount++;
             p.totalPrice += product.singlePrice; // fout
         }

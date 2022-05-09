@@ -14,7 +14,7 @@ interface IState {
     totalPrice: number;
     tableId: number;
     order: Order;
-    //products: Product[];
+    products: Product[];
 }
 
 class Cart extends React.Component<IProps, IState> {
@@ -25,8 +25,8 @@ class Cart extends React.Component<IProps, IState> {
             amount: 0,
             totalPrice: 0,
             tableId: 0,
-            order: { id: 1, tableId: 1, price: 0, products: [] },
-            //products: []
+            order: { tableId: 1, price: 0, products: [] },
+            products: []
         }
     }
 
@@ -60,6 +60,36 @@ class Cart extends React.Component<IProps, IState> {
         return this.x;
     }
 
+    FillArray = () => {
+        // productArray.forEach((product) => {
+        //     this.setState(products.push(product));
+        // })
+    }
+
+    SetOrder = () => {
+        this.setState({ order: { tableId: 1, price: this.state.totalPrice, products: productArray } });
+    }
+
+    PostData = (order: Order) => {
+        console.table(order)
+        console.log(JSON.stringify(order))
+        fetch('http://localhost:8081/api/v1/order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                "tableId": order.tableId,
+                "products": productArray})
+        }).then(response => console.log(response.json()))
+    }
+
+    PlaceOrder = () => {
+        this.SetOrder();
+        console.log(this.state.order);
+        this.PostData(this.state.order);
+        console.table(this.state.order);
+        console.log('hey');
+    }
+
     render() {
         return (
             <section className="h-100 h-custom" data-style="background-color: #d2c9ff;">
@@ -72,18 +102,18 @@ class Cart extends React.Component<IProps, IState> {
                                         <div className="col-lg-8">
                                             <div className="p-5">
                                                 <div className="d-flex justify-content-between align-items-center mb-5">
-                                                    <h1 className="fw-bold mb-0 text-black">Bestelling voor tafel {this.state.tableId}</h1>
+                                                    <h1 className="fw-bold mb-0 text-black">Bestelling voor tafel {this.state.order.tableId}</h1>
                                                     <h6 className="mb-0 text-muted">{this.GetTotalItemsAmount()} items</h6>
                                                 </div>
                                                 {productArray.map((product) =>
-                                                    <Card id={product.id} name={product.name} imgSrc={product.imgSrc} totalPrice={product.totalPrice} amount={product.amount} singlePrice={product.singlePrice} />
+                                                    <Card name={product.name} imgSrc={product.imgSrc} totalPrice={product.totalPrice} amount={product.amount} singlePrice={product.singlePrice} />
                                                 )}
                                                 <div className="d-flex justify-content-between mb-5">
                                                     <h5 className="text-uppercase">Totaal</h5>
                                                     <h5>€  {this.getTotalPrice()}  </h5>
                                                 </div>
                                                 <button type="button" className="btn btn-dark btn-block btn-lg" id="btn-order"
-                                                    data-mdb-ripple-color="dark">Bestel</button>
+                                                    data-mdb-ripple-color="dark" onClick={this.PlaceOrder} >Bestel</button>
                                             </div>
                                         </div>
                                     </div>
@@ -92,11 +122,11 @@ class Cart extends React.Component<IProps, IState> {
                         </div>
                     </div>
                 </div>
-                <div>
+                {/* <div>
                     <button> burgor </button>
                     <button>shak</button>
-                    <button onClick={() => this.LogProducts()}>Log current order</button>
-                </div>
+                    <button onClick={() => console.log(this.state.order)}>Log current order</button>
+                </div> */}
             </section>
         );
     }

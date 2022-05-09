@@ -5,6 +5,7 @@ import MealItems from '../component/Meal/mealItems';
 import CategoryItems from '../component/Category/categoryItems';
 import Header from '../component/header/header';
 import ShoppingCart from '../component/Cart/ShoppingCart';
+import { Button } from 'react-bootstrap';
 
 
 export default function App() {
@@ -13,13 +14,13 @@ export default function App() {
     return (<div className='menu'>
       <Header></Header>
       <CategoryItems></CategoryItems>
-      <button onClick={() => setShow(true)}> hey </button>
+      <Button onClick={() => setShow(true)}> Bestelling afronden </Button>
     </div>);
   }
   else {
     return (<div className='menu'>
       <ShoppingCart></ShoppingCart>
-      <button onClick={() => setShow(false)}> hey </button>
+      <Button onClick={() => setShow(false)}> Terug naar menu </Button>
     </div>);
   }
 }

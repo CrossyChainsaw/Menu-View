@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { AddProduct, productArray, RemoveAmountOfExisitingProduct } from '../Meal/mealItem';
 
 interface IProps {
-    id: number;
     name: string;
     imgSrc: string;
     singlePrice: number;
@@ -41,23 +40,23 @@ class Card extends React.Component<IProps, IState> {
                     </div>
                     <div className="col-md-3 col-lg-3 col-xl-2 d-flex">
                         <button className="btn btn-light" onClick={() => RemoveAmountOfExisitingProduct({
-                            id: this.props.id,
                             name: this.props.name,
                             amount: this.props.amount,
                             singlePrice: this.props.singlePrice,
                             totalPrice: this.props.totalPrice,
-                            imgSrc: this.props.imgSrc
+                            imgSrc: this.props.imgSrc,
+                            isDrink: false
                         })}>-</button>
 
                         <input id="form1" min="0" name="quantity" value={this.props.amount} disabled={true} className="form-control form-control-sm-6" />
 
                         <button className="btn btn-light" onClick={() => AddProduct({
-                            id: this.props.id,
                             name: this.props.name,
                             amount: this.props.amount,
                             singlePrice: this.props.singlePrice,
                             totalPrice: this.props.totalPrice,
-                            imgSrc: this.props.imgSrc
+                            imgSrc: this.props.imgSrc,
+                            isDrink: false
                         })}>+</button>
                     </div>
                     <div className="col-md-3 col-lg-2 col-xl-2 offset-lg-1">

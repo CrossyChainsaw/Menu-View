@@ -6,5 +6,6 @@ export interface Meal {
     img_Src: string,
     mealId: number,
     mealName: string,
-    mealPrice: number
+    mealPrice: number,
+    isDrink: boolean
 }
