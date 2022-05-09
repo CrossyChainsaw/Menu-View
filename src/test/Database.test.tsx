@@ -1,5 +1,6 @@
-import { Meal } from '../interfaces/Meal';
 import mockData from './mock.json'
+import { Meal } from '../interfaces/Meal';
+
 
 test('get data from database', () => {
     let allMeals: Meal[] = mockData;

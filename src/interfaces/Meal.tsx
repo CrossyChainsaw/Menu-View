@@ -1,8 +1,11 @@
+import { Product } from "./Product";
+
 export interface Meal {
-CategoryId: Number,
-categoryId: Number,
-img_Src: string,
-mealId: Number,
-mealName: string,
-mealPrice: Number
+    CategoryId: Number,
+    categoryId: Number,
+    img_Src: string,
+    mealId: number,
+    mealName: string,
+    mealPrice: number,
+    isDrink: boolean
 }
