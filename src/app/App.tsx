@@ -6,24 +6,19 @@ import ShoppingCart from '../component/Cart/ShoppingCart';
 
 export default function App() {
   const [show, setShow] = useState<boolean>(false);
-  if (!show) {
-    return (
-      <>
-        <header>
-          <Header openModal={() => setShow(true)}></Header>
-        </header>
-        <main role="main" className="container">
-          <CategoryItems></CategoryItems>
-        </main>
-        <footer>
-          <div className="container text-center">
-            <p>&#169; BitchesOfTheStreet</p>
-          </div>
-        </footer></>
-    )
-  } else {
-    return (
+  return (
+    <>
       <ShoppingCart show={show} onHide={() => setShow(false)}></ShoppingCart>
-    )
-  }
+      <header>
+        <Header openModal={() => setShow(true)}></Header>
+      </header>
+      <main role="main" className="container">
+        <CategoryItems></CategoryItems>
+      </main>
+      <footer>
+        <div className="container text-center">
+          <p>&#169; BitchesOfTheStreet</p>
+        </div>
+      </footer></>
+  )
 }

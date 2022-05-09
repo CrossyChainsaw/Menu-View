@@ -97,13 +97,11 @@ class Cart extends React.Component<IProps, IState> {
             <Modal
                 onHide={this.props.onHide}
                 show={this.props.show}
-                aria-labelledby="contained-modal-title-vcenter"
                 centered
-                backdrop={true}
-                keyboard={false}
+                keyboard={true}
             >
 
-                <Modal.Header>
+                <Modal.Header closeButton>
                     <Modal.Title>
                         Bestelling voor tafel {this.state.order.tableId}
                     </Modal.Title>
