@@ -22,7 +22,7 @@ export default function CategoryItems() {
             {
                 categoryResult.map((category) => {
                     return (
-                        <div>
+                        <div className="mt-4">
                             <CategoryItem key={category.categoryId} categoryId={category.categoryId} categoryName={category.categoryName} />
                             <MealItems categoryId={category.categoryId}></MealItems>
                             <DrinkItems categoryId={category.categoryId}></DrinkItems>

@@ -35,5 +35,5 @@ test("render mealItems.tsx", () => {
   render(<MealItems categoryId={0} />)
 })
 test("render header.tsx", () => {
-  render(<Header />)
+  render(<Header openModal={() => 1} />)
 })
