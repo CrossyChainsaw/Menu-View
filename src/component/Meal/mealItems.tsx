@@ -24,9 +24,9 @@ export default function MealItems(categoryId: Props) {
     return (
         <div className="container">
             <div className="row">
-                {results.filter(meal => categoryId.categoryId === meal.CategoryId).map((meal) => {
+                {results.filter(meal => categoryId.categoryId === meal.categoryID).map((meal) => {
                     return (
-                        <MealItem key={meal.categoryId as Key} meal={meal} />
+                        <MealItem key={meal.categoryID as Key} meal={meal} />
                     );
                 })}
             </div>

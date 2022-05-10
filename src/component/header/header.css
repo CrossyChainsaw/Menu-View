@@ -31,3 +31,7 @@
   filter: brightness(40%);
   position: relative;
 }
+
+.navbar {
+  background-color: #262626 !important;
+}

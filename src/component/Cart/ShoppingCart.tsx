@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Card from './Card';
-// import { convertCompilerOptionsFromJson, isTemplateSpan } from 'typescript';
-// import { useCookies } from "react-cookie";
+
+import ProductCard from './ProductCard';
+import './ShoppingCard.css'
+
 import { Order } from '../../interfaces/Order'
 import { Product } from '../../interfaces/Product';
 import { productArray } from '../Meal/mealItem';
+import { Modal, ModalBody } from 'react-bootstrap';
 
-interface IProps { }
+interface IProps {
+    onHide(): void,
+    show: boolean
+}
 
 interface IState {
     amount: number;
@@ -30,9 +35,6 @@ class Cart extends React.Component<IProps, IState> {
         }
     }
 
-
-
-
     RemoveFromProductArray(product: Product) {
         productArray.forEach((element, index) => {
             if (element == product) delete productArray[index];
@@ -42,7 +44,7 @@ class Cart extends React.Component<IProps, IState> {
     getTotalPrice() {
         let totalPrice: number = 0;
         productArray.map((product) => {
-            totalPrice += product.totalPrice;
+            totalPrice += product.price; // <- fout
         })
         totalPrice = Math.round((totalPrice + Number.EPSILON) * 100) / 100;
         return totalPrice;
@@ -55,7 +57,7 @@ class Cart extends React.Component<IProps, IState> {
     x: number = 0;
     GetTotalItemsAmount() {
         productArray.map((p) => {
-            this.x += p.amount;
+            return this.x += p.amount;
         })
         return this.x;
     }
@@ -67,7 +69,7 @@ class Cart extends React.Component<IProps, IState> {
     }
 
     SetOrder = () => {
-        this.setState({ order: { tableId: 1, price: this.state.totalPrice, products: productArray } });
+        this.setState({ order: { id: 0, tableId: 1, price: this.state.totalPrice, products: productArray, isDrink: false } });
     }
 
     PostData = (order: Order) => {
@@ -78,7 +80,8 @@ class Cart extends React.Component<IProps, IState> {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 "tableId": order.tableId,
-                "products": productArray})
+                "products": productArray
+            })
         }).then(response => console.log(response.json()))
     }
 
@@ -92,42 +95,47 @@ class Cart extends React.Component<IProps, IState> {
 
     render() {
         return (
-            <section className="h-100 h-custom" data-style="background-color: #d2c9ff;">
-                <div className="container py-5 h-100">
-                    <div className="row d-flex justify-content-center align-items-center h-100">
-                        <div className="col-12">
-                            <div className="card card-registration card-registration-2" data-style='border-radius: 15px;'>
-                                <div className="card-body p-0">
-                                    <div className="row g-0">
-                                        <div className="col-lg-8">
-                                            <div className="p-5">
-                                                <div className="d-flex justify-content-between align-items-center mb-5">
-                                                    <h1 className="fw-bold mb-0 text-black">Bestelling voor tafel {this.state.order.tableId}</h1>
-                                                    <h6 className="mb-0 text-muted">{this.GetTotalItemsAmount()} items</h6>
-                                                </div>
-                                                {productArray.map((product) =>
-                                                    <Card name={product.name} imgSrc={product.imgSrc} totalPrice={product.totalPrice} amount={product.amount} singlePrice={product.singlePrice} />
-                                                )}
-                                                <div className="d-flex justify-content-between mb-5">
-                                                    <h5 className="text-uppercase">Totaal</h5>
-                                                    <h5>€  {this.getTotalPrice()}  </h5>
-                                                </div>
-                                                <button type="button" className="btn btn-dark btn-block btn-lg" id="btn-order"
-                                                    data-mdb-ripple-color="dark" onClick={this.PlaceOrder} >Bestel</button>
-                                            </div>
+            <Modal
+                onHide={this.props.onHide}
+                show={this.props.show}
+                centered
+                keyboard={true}
+            >
+
+                <Modal.Header closeButton>
+                    <Modal.Title>
+                        Bestelling voor tafel {this.state.order.tableId}
+                    </Modal.Title>
+                </Modal.Header>
+
+                <ModalBody>
+                    <section>
+                        <h6 className="mb-0 text-muted">{this.GetTotalItemsAmount()} items</h6>
+                        <div className="card-body p-0">
+                            <div className="row g-0">
+                                <div className="col-lg-8">
+                                    <div className="p-5">
+                                        {productArray.map((product) =>                                                                // v fout
+                                            <ProductCard id={product.id} name={product.name} imgSrc={product.image} totalPrice={product.price} amount={product.amount} singlePrice={product.price} />
+                                        )}
+                                        <div className="d-flex justify-content-between mb-5">
+                                            <h5 className="text-uppercase">Totaal</h5>
+                                            <h5>€  {this.getTotalPrice()}  </h5>
                                         </div>
+                                        <button type="button" className="btn btn-dark btn-block btn-lg" id="btn-order"
+                                            data-mdb-ripple-color="dark" onClick={this.PlaceOrder} >Bestel</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                {/* <div>
+                        {/* <div>
                     <button> burgor </button>
                     <button>shak</button>
                     <button onClick={() => console.log(this.state.order)}>Log current order</button>
                 </div> */}
-            </section>
+                    </section>
+                </ModalBody>
+            </Modal >
         );
     }
 }

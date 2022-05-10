@@ -1,27 +1,26 @@
 import React, { useState } from 'react';
 import './Card.css';
+import './ProductCard.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { AddProduct, productArray, RemoveAmountOfExisitingProduct } from '../Meal/mealItem';
+import { AddProduct, RemoveAmountOfExisitingProduct } from '../Meal/mealItem';
 
 interface IProps {
+    id: number;
     name: string;
     imgSrc: string;
-    singlePrice: number;
     totalPrice: number;
     amount: number;
+    singlePrice: number;
 }
 
 interface IState {
     items: any[];
+    amount: number;
 }
 
 class Card extends React.Component<IProps, IState> {
     constructor(props: any) {
         super(props)
-
-        this.state = {
-            items: [],
-        }
     }
 
 
