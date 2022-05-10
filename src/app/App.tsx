@@ -3,7 +3,6 @@ import './App.css';
 import CategoryItems from '../component/Category/categoryItems';
 import Header from '../component/header/header';
 import ShoppingCart from '../component/Cart/ShoppingCart';
-import Kaas from '../kaas/kaas';
 
 export default function App() {
   const [show, setShow] = useState<boolean>(false);
@@ -15,7 +14,6 @@ export default function App() {
       </header>
       <main role="main" className="container">
         <CategoryItems></CategoryItems>
-        <Kaas></Kaas>
       </main>
       <footer>
         <div className="container text-center">

@@ -1,12 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import CategoryItems from '../component/Category/categoryItems';
-import DrinkItems from '../component/Drink/drinkItems';
-import DrinkItem from '../component/Drink/drinkItem';
-import { Drink } from '../interfaces/Drink'
+import Menuitems from '../component/Menu/MenuItem';
+import Menuitem from '../component/Menu/MenuItem';
+import { Product } from '../interfaces/Product'
 import CategoryItem from '../component/Category/categoryItem';
-import MealItems from '../component/Meal/mealItems';
-import { Meal } from '../interfaces/Meal';
-import MealItem from '../component/Meal/mealItem';
 import Header from '../component/header/header';
 import App from '../app/App';
 

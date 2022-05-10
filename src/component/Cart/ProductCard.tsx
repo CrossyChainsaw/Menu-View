@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import './Card.css';
+import { Component } from 'react';
+import { Product } from '../../interfaces/Product';
 import './ProductCard.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Product } from '../../interfaces/Product';
 
 interface IProps {
     product: Product
@@ -12,7 +11,7 @@ interface IState {
     product: Product;
 }
 
-class Card extends React.Component<IProps, IState> {
+class Card extends Component<IProps, IState> {
     constructor(props: any) {
         super(props)
 
@@ -21,10 +20,6 @@ class Card extends React.Component<IProps, IState> {
         }
     }
 
-    // ChangeAmount = (product: Product) => {
-    //     this.setState({ cartItems: [...this.state.cartItems, product] });
-    // }
-
     render() {
         return (
             <div>
@@ -32,7 +27,7 @@ class Card extends React.Component<IProps, IState> {
                     <div className="col-md-2 col-lg-2 col-xl-2">
                         <img
                             alt=''
-                            src={this.props.product.imgSrc}
+                            src={this.props.product.image}
                             className="img-fluid rounded-3" />
                     </div>
                     <div className="col-md-3 col-lg-3 col-xl-3">
@@ -46,7 +41,7 @@ class Card extends React.Component<IProps, IState> {
                         <button className="btn btn-light" onClick={() => { }}>+</button>
                     </div>
                     <div className="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                        <h6 className="mb-0">€ {this.props.product.totalPrice}</h6>
+                        <h6 className="mb-0">€ {this.props.product.price}</h6>
                     </div>
                 </div>
                 <hr className="my-4" />
