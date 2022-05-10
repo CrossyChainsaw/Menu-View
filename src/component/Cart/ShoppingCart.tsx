@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import ProductCard from './ProductCard';
 import './ShoppingCard.css'
 
-import { Order } from '../../interfaces/Order'
 import { Product } from '../../interfaces/Product';
 import { productArray } from '../Meal/mealItem';
 import { Modal, ModalBody } from 'react-bootstrap';
@@ -15,11 +13,8 @@ interface IProps {
 }
 
 interface IState {
-    amount: number;
-    totalPrice: number;
     tableId: number;
-    order: Order;
-    products: Product[];
+    cartItems: Product[];
 }
 
 class Cart extends React.Component<IProps, IState> {
@@ -27,70 +22,53 @@ class Cart extends React.Component<IProps, IState> {
         super(props)
 
         this.state = {
-            amount: 0,
-            totalPrice: 0,
             tableId: 0,
-            order: { tableId: 1, price: 0, products: [] },
-            products: []
+            cartItems: []
         }
     }
 
-    RemoveFromProductArray(product: Product) {
-        productArray.forEach((element, index) => {
-            if (element == product) delete productArray[index];
-        });
+    AddProduct = (product: Product) => {
+        this.setState({ cartItems: [...this.state.cartItems, product] });
+    }
+
+    RemoveProduct = (product: Product) => {
+        this.setState({ cartItems: this.state.cartItems.filter(x => x.id !== product.id) });
     }
 
     getTotalPrice() {
-        let totalPrice: number = 0;
-        productArray.map((product) => {
-            totalPrice += product.price; // <- fout
+        let total: number = 0;
+        this.state.cartItems.forEach(cartItem => {
+            total += (cartItem.amount * cartItem.price);
         })
-        totalPrice = Math.round((totalPrice + Number.EPSILON) * 100) / 100;
-        return totalPrice;
+        return total;
     }
 
     LogProducts() {
         console.log(productArray);
     }
 
-    x: number = 0;
+
     GetTotalItemsAmount() {
+        let amount: number = 0;
         productArray.map((p) => {
-            return this.x += p.amount;
+            return amount += p.amount;
         })
-        return this.x;
+        return amount;
     }
 
-    FillArray = () => {
-        // productArray.forEach((product) => {
-        //     this.setState(products.push(product));
-        // })
+    ChangeAmount(product: Product, amount: number) {
+
     }
 
-    SetOrder = () => {
-        this.setState({ order: { id: 0, tableId: 1, price: this.state.totalPrice, products: productArray, isDrink: false } });
-    }
-
-    PostData = (order: Order) => {
-        console.table(order)
-        console.log(JSON.stringify(order))
+    PlaceOrder = () => {
         fetch('http://localhost:8081/api/v1/order', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                "tableId": order.tableId,
-                "products": productArray
+                "tableId": this.state.tableId,
+                "products": productArray.map(x => { return { "name": x.name, "amount": x.amount, "drink": true } })
             })
         }).then(response => console.log(response.json()))
-    }
-
-    PlaceOrder = () => {
-        this.SetOrder();
-        console.log(this.state.order);
-        this.PostData(this.state.order);
-        console.table(this.state.order);
-        console.log('hey');
     }
 
     render() {
@@ -104,7 +82,7 @@ class Cart extends React.Component<IProps, IState> {
 
                 <Modal.Header closeButton>
                     <Modal.Title>
-                        Bestelling voor tafel {this.state.order.tableId}
+                        Bestelling voor tafel {this.state.tableId}
                     </Modal.Title>
                 </Modal.Header>
 
@@ -115,8 +93,8 @@ class Cart extends React.Component<IProps, IState> {
                             <div className="row g-0">
                                 <div className="col-lg-8">
                                     <div className="p-5">
-                                        {productArray.map((product) =>                                                                // v fout
-                                            <ProductCard id={product.id} name={product.name} imgSrc={product.image} totalPrice={product.price} amount={product.amount} singlePrice={product.price} />
+                                        {productArray.map((product: Product) =>
+                                            <ProductCard product={product} />
                                         )}
                                         <div className="d-flex justify-content-between mb-5">
                                             <h5 className="text-uppercase">Totaal</h5>
@@ -128,13 +106,15 @@ class Cart extends React.Component<IProps, IState> {
                                 </div>
                             </div>
                         </div>
-                        {/* <div>
-                    <button> burgor </button>
-                    <button>shak</button>
-                    <button onClick={() => console.log(this.state.order)}>Log current order</button>
-                </div> */}
                     </section>
                 </ModalBody>
+
+                <Modal.Footer className="text-center p-5">
+                    <div className="mb-3">
+                        <span className="d-block font-weight-semi-bold">Order Total</span>
+                        <span className="d-block">$56.99</span>
+                    </div>
+                </Modal.Footer>
             </Modal >
         );
     }
