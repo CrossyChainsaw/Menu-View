@@ -7,10 +7,10 @@ import CategoryItem from '../component/Category/categoryItem';
 import Header from '../component/header/header';
 import App from '../app/App';
 
-// Render All
-// test("render App.tsx", () => {
-//   render(<App />)
-// })
+//Render All
+test("render App.tsx", () => {
+    render(<App />)
+})
 // test("render categoryItem.tsx", () => {
 //   render(<CategoryItem ID={0} name={"categoryTest"} />)
 // })
