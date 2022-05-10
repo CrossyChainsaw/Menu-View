@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './App.css';
-import CategoryItems from '../component/Category/categoryItems';
-import Header from '../component/header/header';
-import ShoppingCart from '../component/Cart/ShoppingCart';
+import CategoryItems from './components/Category/categoryItems';
+import Header from './components/header/header';
+import ShoppingCart from './components/Cart/ShoppingCart';
 
 export default function App() {
   const [show, setShow] = useState<boolean>(false);

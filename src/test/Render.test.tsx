@@ -1,11 +1,5 @@
-import { render, screen } from '@testing-library/react';
-import CategoryItems from '../component/Category/categoryItems';
-import Menuitems from '../component/Menu/MenuItem';
-import Menuitem from '../component/Menu/MenuItem';
-import { Product } from '../interfaces/Product'
-import CategoryItem from '../component/Category/categoryItem';
-import Header from '../component/header/header';
-import App from '../app/App';
+import { render } from '@testing-library/react';
+import App from '../App';
 
 //Render All
 test("render App.tsx", () => {
