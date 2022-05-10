@@ -1,9 +1,8 @@
-/* eslint-disable jsx-a11y/role-supports-aria-props */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { Component } from 'react'
-import { productArray } from '../Meal/mealItem';
+import { Product } from '../../interfaces/Product';
 import './header.css';
 
 interface IProps {
@@ -24,7 +23,7 @@ export default class Header extends Component<IProps, IState> {
 
     x: number = 0;
     GetTotalItemsAmount() {
-        productArray.map((p) => {
+        [].map((p: Product) => {
             return this.x += p.amount;
         })
         return this.x;

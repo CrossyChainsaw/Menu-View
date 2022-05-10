@@ -1,11 +1,8 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+import { Component } from 'react';
 import ProductCard from './ProductCard';
-import './ShoppingCard.css'
-
 import { Product } from '../../interfaces/Product';
-import { productArray } from '../Meal/mealItem';
 import { Modal, ModalBody } from 'react-bootstrap';
+import './ShoppingCard.css'
 
 interface IProps {
     onHide(): void,
@@ -17,7 +14,7 @@ interface IState {
     cartItems: Product[];
 }
 
-class Cart extends React.Component<IProps, IState> {
+class Cart extends Component<IProps, IState> {
     constructor(props: any) {
         super(props)
 
@@ -44,14 +41,14 @@ class Cart extends React.Component<IProps, IState> {
     }
 
     LogProducts() {
-        console.log(productArray);
+        console.log(this.state.cartItems);
     }
 
 
     GetTotalItemsAmount() {
         let amount: number = 0;
-        productArray.map((p) => {
-            return amount += p.amount;
+        this.state.cartItems.map((product: Product) => {
+            return amount += product.amount;
         })
         return amount;
     }
@@ -66,7 +63,7 @@ class Cart extends React.Component<IProps, IState> {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 "tableId": this.state.tableId,
-                "products": productArray.map(x => { return { "name": x.name, "amount": x.amount, "drink": true } })
+                "products": this.state.cartItems.map((product: Product) => { return { "name": product.name, "amount": product.amount, "drink": true } })
             })
         }).then(response => console.log(response.json()))
     }
@@ -93,7 +90,7 @@ class Cart extends React.Component<IProps, IState> {
                             <div className="row g-0">
                                 <div className="col-lg-8">
                                     <div className="p-5">
-                                        {productArray.map((product: Product) =>
+                                        {this.state.cartItems.map((product: Product) =>
                                             <ProductCard product={product} />
                                         )}
                                         <div className="d-flex justify-content-between mb-5">

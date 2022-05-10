@@ -1,10 +1,9 @@
 import CategoryItem from './categoryItem';
-import MealItems from '../Meal/mealItems';
+import MenuItems from '../Menu/MenuItems'
 import { useState, useEffect } from "react";
-import DrinkItems from '../Drink/drinkItems';
 import { Category } from '../../interfaces/Category';
 
-export const apiUrl: string = 'http://localhost:8080/categories/all';
+export const apiUrl: string = 'http://localhost:8082/categories/all';
 
 export default function CategoryItems() {
     const [categoryResult, setCategoryResult] = useState<Category[]>([]);
@@ -24,8 +23,7 @@ export default function CategoryItems() {
                     return (
                         <div className="mt-4">
                             <CategoryItem key={category.ID} ID={category.ID} name={category.name} />
-                            <MealItems categoryId={category.ID}></MealItems>
-                            <DrinkItems categoryId={category.ID}></DrinkItems>
+                            <MenuItems category={category}></MenuItems>
                         </div>
                     );
                 })}

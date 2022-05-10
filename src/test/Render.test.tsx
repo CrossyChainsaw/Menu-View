@@ -1,19 +1,10 @@
-import { render, screen } from '@testing-library/react';
-import CategoryItems from '../component/Category/categoryItems';
-import DrinkItems from '../component/Drink/drinkItems';
-import DrinkItem from '../component/Drink/drinkItem';
-import { Drink } from '../interfaces/Drink'
-import CategoryItem from '../component/Category/categoryItem';
-import MealItems from '../component/Meal/mealItems';
-import { Meal } from '../interfaces/Meal';
-import MealItem from '../component/Meal/mealItem';
-import Header from '../component/header/header';
-import App from '../app/App';
+import { render } from '@testing-library/react';
+import App from '../App';
 
-// Render All
-// test("render App.tsx", () => {
-//   render(<App />)
-// })
+//Render All
+test("render App.tsx", () => {
+    render(<App />)
+})
 // test("render categoryItem.tsx", () => {
 //   render(<CategoryItem ID={0} name={"categoryTest"} />)
 // })
