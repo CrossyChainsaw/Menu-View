@@ -1,10 +1,10 @@
 import { Product } from "./Product";
 
 export interface Meal {
-    CategoryId: Number,
-    categoryId: Number,
-    img_Src: string,
-    mealId: number,
-    mealName: string,
-    mealPrice: number
+    stock: number;
+    categoryID: number,
+    image: string,
+    id: number,
+    name: string,
+    price: number
 }

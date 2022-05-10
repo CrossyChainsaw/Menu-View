@@ -16,13 +16,11 @@ export let productArray: Product[] = [];
 function AddMeal(meal: Meal) {
     //meal omtoveren tot product
     let product: Product = {
-        name: meal.mealName,
-        singlePrice: Math.round((meal.mealPrice + Number.EPSILON) * 100) / 100,
-        totalPrice: meal.mealPrice,
+        name: meal.name,
         amount: 1,
-        imgSrc: meal.img_Src,
-        id: meal.mealId,
-        price: meal.mealPrice
+        image: meal.image,
+        id: meal.id,
+        price: meal.price
     }
     // als prudct niet bestaat toebveogen als wel bestaat amount++
     AddProduct(product);
@@ -58,11 +56,12 @@ function DeleteFromArrayIfAmountIsZero(product: Product) {
     }
 }
 
+let totalPrice: 0;
 export function RemoveAmountOfExisitingProduct(product: Product) {
     productArray.forEach((p) => {
         if (p.id == product.id) {
             p.amount--;
-            p.totalPrice -= product.singlePrice;
+            totalPrice -= product.price;
             DeleteFromArrayIfAmountIsZero(p);
         }
     })
@@ -73,7 +72,7 @@ function AddAmountToExisitingProduct(product: Product) {
     productArray.forEach((p) => {
         if (p.id == product.id) {
             p.amount++;
-            p.totalPrice += product.singlePrice; // fout
+            totalPrice += product.price; // fout
         }
     })
 }
@@ -89,11 +88,11 @@ export default class MealItem extends React.Component<IAppProps, IAppState> {
         return (
             <div className="col-sm-3">
                 <Card className='meal-image-effect'>
-                    <img className='card-img-top meal-image' src={this.props.meal.img_Src} alt=""></img>
+                    <img className='card-img-top meal-image' src={this.props.meal.image} alt=""></img>
                     <div className="card-body">
                         <div className="wrapper-new2">
-                            <h6>{this.props.meal.mealName}</h6>
-                            <span className="span-white">€{this.props.meal.mealPrice}
+                            <h6>{this.props.meal.name}</h6>
+                            <span className="span-white">€{this.props.meal.price}
                             </span>
                         </div>
 

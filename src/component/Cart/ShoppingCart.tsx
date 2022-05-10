@@ -44,7 +44,7 @@ class Cart extends React.Component<IProps, IState> {
     getTotalPrice() {
         let totalPrice: number = 0;
         productArray.map((product) => {
-            totalPrice += product.totalPrice;
+            totalPrice += product.price; // <- fout
         })
         totalPrice = Math.round((totalPrice + Number.EPSILON) * 100) / 100;
         return totalPrice;
@@ -114,8 +114,8 @@ class Cart extends React.Component<IProps, IState> {
                             <div className="row g-0">
                                 <div className="col-lg-8">
                                     <div className="p-5">
-                                        {productArray.map((product) =>
-                                            <ProductCard id={product.id} name={product.name} imgSrc={product.imgSrc} totalPrice={product.totalPrice} amount={product.amount} singlePrice={product.singlePrice} />
+                                        {productArray.map((product) =>                                                                // v fout
+                                            <ProductCard id={product.id} name={product.name} imgSrc={product.image} totalPrice={product.price} amount={product.amount} singlePrice={product.price} />
                                         )}
                                         <div className="d-flex justify-content-between mb-5">
                                             <h5 className="text-uppercase">Totaal</h5>

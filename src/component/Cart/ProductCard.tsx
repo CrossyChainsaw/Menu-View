@@ -66,9 +66,7 @@ class Card extends React.Component<IProps, IState> {
                             id: this.props.id,
                             name: this.props.name,
                             amount: this.props.amount,
-                            singlePrice: this.props.singlePrice,
-                            totalPrice: this.props.totalPrice,
-                            imgSrc: this.props.imgSrc,
+                            image: this.props.imgSrc,
                             price: 0
                         })}>-</button>
 
@@ -78,9 +76,7 @@ class Card extends React.Component<IProps, IState> {
                             id: this.props.id,
                             name: this.props.name,
                             amount: this.props.amount,
-                            singlePrice: this.props.singlePrice,
-                            totalPrice: this.props.totalPrice,
-                            imgSrc: this.props.imgSrc,
+                            image: this.props.imgSrc,
                             price: 0
                         })}>+</button>
                     </div>

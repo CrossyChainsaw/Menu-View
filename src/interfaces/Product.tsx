@@ -3,7 +3,5 @@ export interface Product {
     name: string,
     amount: number,
     price: number,
-    imgSrc: string,
-    totalPrice: number,
-    singlePrice: number
+    image: string
 }

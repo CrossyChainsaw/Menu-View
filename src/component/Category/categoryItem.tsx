@@ -15,7 +15,7 @@ export default class CategoryItem extends React.Component<Category> {
         return (
             <div>
                 <h1 className='center-text'>
-                    {this.props.categoryName}
+                    {this.props.name}
                 </h1>
             </div>
         );
