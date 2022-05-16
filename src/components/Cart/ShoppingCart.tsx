@@ -68,6 +68,13 @@ class Cart extends Component<IProps, IState> {
         }).then(response => console.log(response.json()))
     }
 
+    CreateCookie = (cname: string, cvalue: number, hours: number) => {
+        const d = new Date();
+        d.setTime(d.getTime() + (hours * 24 * 60 * 60 * 1000 + 7200000));
+        let expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
     render() {
         return (
             <Modal
