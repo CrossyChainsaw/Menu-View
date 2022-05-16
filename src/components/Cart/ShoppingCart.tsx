@@ -3,6 +3,7 @@ import ProductCard from './ProductCard';
 import { Product } from '../../interfaces/Product';
 import { Modal, ModalBody } from 'react-bootstrap';
 import './ShoppingCard.css'
+import { placeOrder } from '../../api/productService';
 
 interface IProps {
     onHide(): void,
@@ -58,14 +59,7 @@ class Cart extends Component<IProps, IState> {
     }
 
     PlaceOrder = () => {
-        fetch('http://localhost:8081/api/v1/order', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                "tableId": this.state.tableId,
-                "products": this.state.cartItems.map((product: Product) => { return { "name": product.name, "amount": product.amount, "drink": true } })
-            })
-        }).then(response => console.log(response.json()))
+        placeOrder(this.state.tableId, this.state.cartItems.map((product: Product) => { return { "name": product.name, "amount": product.amount, "drink": true } }));
     }
 
     render() {

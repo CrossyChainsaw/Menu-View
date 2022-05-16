@@ -2,16 +2,13 @@ import CategoryItem from './categoryItem';
 import MenuItems from '../Menu/MenuItems'
 import { useState, useEffect } from "react";
 import { Category } from '../../interfaces/Category';
-
-export const apiUrl: string = 'http://localhost:8082/categories/all';
+import { getAllCategories } from '../../api/categoryService';
 
 export default function CategoryItems() {
     const [categoryResult, setCategoryResult] = useState<Category[]>([]);
     useEffect(() => {
         const api = async () => {
-            const data = await fetch(apiUrl);
-            const jsonData = await data.json();
-            setCategoryResult(jsonData);
+            setCategoryResult(await getAllCategories());
         };
         api();
     }, []);
