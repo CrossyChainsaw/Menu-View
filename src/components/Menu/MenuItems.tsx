@@ -2,6 +2,7 @@ import { useState, useEffect, Key } from "react";
 import { Product } from '../../interfaces/Product';
 import { Category } from '../../interfaces/Category';
 import MenuItem from './MenuItem';
+import { getAllMenuItems } from "../../api/productService";
 
 const uid = function () {
     return Date.now().toString(36) + Math.random().toString(36).substr(2);
@@ -16,11 +17,7 @@ export default function Menuitems(props: IProps) {
 
     useEffect(() => {
         const api = async () => {
-            const data = await fetch('http://localhost:8082/meals/all', {
-                method: "GET"
-            });
-            const jsonData = await data.json();
-            setResults(jsonData);
+            setResults(await getAllMenuItems());
         };
         api();
     }, []);
