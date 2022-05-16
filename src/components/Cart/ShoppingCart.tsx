@@ -2,7 +2,7 @@ import { Component } from 'react';
 import ProductCard from './ProductCard';
 import { Product } from '../../interfaces/Product';
 import { Modal, ModalBody } from 'react-bootstrap';
-import { placeOrder } from '../../API/productService';
+import { placeOrder } from '../../api/productService';
 
 interface IProps {
     onHide(): void,
@@ -43,7 +43,6 @@ class Cart extends Component<IProps, IState> {
     LogProducts() {
         console.log(this.state.cartItems);
     }
-
 
     GetTotalItemsAmount() {
         let amount: number = 0;
