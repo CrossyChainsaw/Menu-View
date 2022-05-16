@@ -2,8 +2,7 @@ import { Component } from 'react';
 import ProductCard from './ProductCard';
 import { Product } from '../../interfaces/Product';
 import { Modal, ModalBody } from 'react-bootstrap';
-import './ShoppingCard.css'
-import { placeOrder } from '../../api/productService';
+import { placeOrder } from '../../API/productService';
 
 interface IProps {
     onHide(): void,
