@@ -1,119 +1,115 @@
-import { Component } from 'react';
+import { useEffect, useState } from 'react';
 import ProductCard from './ProductCard';
 import { Product } from '../../interfaces/Product';
 import { Modal, ModalBody } from 'react-bootstrap';
 import { placeOrder } from '../../api/productService';
+import { useCookies } from 'react-cookie';
 
 interface IProps {
     onHide(): void,
     show: boolean
 }
 
-interface IState {
-    tableId: number;
-    cartItems: Product[];
-}
+function Cart(props: IProps) {
+    const [tableID, setTableID] = useState(0);
+    const [cartItems, setCartItems] = useState<Product[]>([]);
+    const [cookies] = useCookies(['products']);
 
-class Cart extends Component<IProps, IState> {
-    constructor(props: any) {
-        super(props)
+    useEffect(() => {
+        setTableID(parseInt(document.cookie.split('; ').reduce((r, v) => {
+            const parts = v.split('=')
+            return parts[0] === "tableID" ? decodeURIComponent(parts[1]) : r
+        }, '')));
 
-        this.state = {
-            tableId: 0,
-            cartItems: []
-        }
+        const products: Product[] = cookies.products || [];
+        setCartItems(products);
+    }, [cookies.products]);
+
+    function AddProduct(product: Product) {
+        setCartItems([...cartItems, product]);
     }
 
-    AddProduct = (product: Product) => {
-        this.setState({ cartItems: [...this.state.cartItems, product] });
+    function RemoveProduct(product: Product) {
+        setCartItems(cartItems.filter(x => x.id !== product.id));
     }
 
-    RemoveProduct = (product: Product) => {
-        this.setState({ cartItems: this.state.cartItems.filter(x => x.id !== product.id) });
-    }
-
-    getTotalPrice() {
+    function getTotalPrice() {
         let total: number = 0;
-        this.state.cartItems.forEach(cartItem => {
+        cartItems.forEach(cartItem => {
             total += (cartItem.amount * cartItem.price);
         })
         return total;
     }
 
-    LogProducts() {
-        console.log(this.state.cartItems);
+    function LogProducts() {
+        console.log(cartItems);
     }
 
-    GetTotalItemsAmount() {
-        let amount: number = 0;
-        this.state.cartItems.map((product: Product) => {
-            return amount += product.amount;
-        })
-        return amount;
+    function GetTotalItemsAmount() {
+        const products: Product[] = cookies.products || [];
+        return products.length;
     }
 
-    ChangeAmount(product: Product, amount: number) {
+    function ChangeAmount(product: Product, amount: number) {
 
     }
 
-    PlaceOrder = () => {
-        placeOrder(this.state.tableId, this.state.cartItems.map((product: Product) => { return { "name": product.name, "amount": product.amount, "drink": true } }));
+    function PlaceOrder() {
+        placeOrder(tableID, cartItems.map((product: Product) => { return { "name": product.name, "amount": product.amount, "drink": true } }));
     }
 
-    CreateCookie = (cname: string, cvalue: number, hours: number) => {
+    function CreateCookie(cname: string, cvalue: number, hours: number) {
         const d = new Date();
         d.setTime(d.getTime() + (hours * 24 * 60 * 60 * 1000 + 7200000));
         let expires = "expires=" + d.toUTCString();
         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     }
 
-    render() {
-        return (
-            <Modal
-                onHide={this.props.onHide}
-                show={this.props.show}
-                centered
-                keyboard={true}
-            >
+    return (
+        <Modal
+            onHide={props.onHide}
+            show={props.show}
+            centered
+            keyboard={true}
+        >
 
-                <Modal.Header closeButton>
-                    <Modal.Title>
-                        Bestelling voor tafel {this.state.tableId}
-                    </Modal.Title>
-                </Modal.Header>
+            <Modal.Header closeButton>
+                <Modal.Title>
+                    Bestelling voor tafel {tableID}
+                </Modal.Title>
+            </Modal.Header>
 
-                <ModalBody>
-                    <section>
-                        <h6 className="mb-0 text-muted">{this.GetTotalItemsAmount()} items</h6>
-                        <div className="card-body p-0">
-                            <div className="row g-0">
-                                <div className="col-lg-8">
-                                    <div className="p-5">
-                                        {this.state.cartItems.map((product: Product) =>
-                                            <ProductCard product={product} />
-                                        )}
-                                        <div className="d-flex justify-content-between mb-5">
-                                            <h5 className="text-uppercase">Totaal</h5>
-                                            <h5>€  {this.getTotalPrice()}  </h5>
-                                        </div>
-                                        <button type="button" className="btn btn-dark btn-block btn-lg" id="btn-order"
-                                            data-mdb-ripple-color="dark" onClick={this.PlaceOrder} >Bestel</button>
+            <ModalBody>
+                <section>
+                    <h6 className="mb-0 text-muted">{GetTotalItemsAmount()} items</h6>
+                    <div className="card-body p-0">
+                        <div className="row g-0">
+                            <div className="col-lg-8">
+                                <div className="p-5">
+                                    {cartItems.map((product: Product) =>
+                                        <ProductCard product={product} />
+                                    )}
+                                    <div className="d-flex justify-content-between mb-5">
+                                        <h5 className="text-uppercase">Totaal</h5>
+                                        <h5>€  {getTotalPrice()}  </h5>
                                     </div>
+                                    <button type="button" className="btn btn-dark btn-block btn-lg" id="btn-order"
+                                        data-mdb-ripple-color="dark" onClick={PlaceOrder} >Bestel</button>
                                 </div>
                             </div>
                         </div>
-                    </section>
-                </ModalBody>
-
-                <Modal.Footer className="text-center p-5">
-                    <div className="mb-3">
-                        <span className="d-block font-weight-semi-bold">Order Total</span>
-                        <span className="d-block">$56.99</span>
                     </div>
-                </Modal.Footer>
-            </Modal >
-        );
-    }
+                </section>
+            </ModalBody>
+
+            <Modal.Footer className="text-center p-5">
+                <div className="mb-3">
+                    <span className="d-block font-weight-semi-bold">Order Total</span>
+                    <span className="d-block">$56.99</span>
+                </div>
+            </Modal.Footer>
+        </Modal >
+    );
 }
 
 export default Cart;
