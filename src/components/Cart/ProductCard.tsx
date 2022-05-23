@@ -8,6 +8,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 interface IProps {
     product: Product
     removeProduct(product: Product): void
+    updateAmount(product: Product, amount: Number): void
 }
 
 interface IState {
@@ -24,8 +25,6 @@ class Card extends Component<IProps, IState> {
     }
 
     render() {
-        console.log(this.props.product.amount);
-
         return (
             <tr>
                 <td className="w-25">
@@ -36,7 +35,7 @@ class Card extends Component<IProps, IState> {
                 </td>
                 <td>{this.props.product.name}</td>
                 <td>{"€" + this.props.product.price}</td>
-                <td className="qty"><input type="text" className="form-control" id="input1" value={this.props.product.amount}></input></td>
+                <td className="qty"><input type="text" className="form-control" id="input1" onChange={e => this.props.updateAmount(this.props.product, parseInt(e.target.value))} value={this.props.product.amount}></input></td>
                 <td>{"€" + (this.props.product.price * this.props.product.amount)}</td>
                 <td>
                     <FontAwesomeIcon style={{ color: "red" }} icon={faTimes} onClick={() => { this.props.removeProduct(this.props.product) }} />

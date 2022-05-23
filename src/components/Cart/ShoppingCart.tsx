@@ -31,6 +31,16 @@ function Cart(props: IProps) {
         setCookie('products', JSON.stringify(products), { path: '/' })
     }
 
+    function updateAmount(product: Product, amount: Number) {
+        let products: Product[] = cookies.products || [];
+        products.map(p =>
+            p.ID === product.ID
+                ? { ...p, amount: amount }
+                : p
+        );
+        setCookie('products', JSON.stringify(products), { path: '/' })
+    }
+
     function getTotalPrice() {
         let total: number = 0;
         cartItems.forEach(cartItem => {
@@ -79,7 +89,7 @@ function Cart(props: IProps) {
                             </thead>
                             <tbody>
                                 {cartItems.map((product: Product) =>
-                                    <ProductCard removeProduct={(product: Product) => RemoveProduct(product)} product={product} />
+                                    <ProductCard updateAmount={(product: Product, amount: Number) => { updateAmount(product, amount) }} removeProduct={(product: Product) => RemoveProduct(product)} product={product} />
                                 )}
                             </tbody>
                             <div className="d-flex justify-content-between mb-5">
