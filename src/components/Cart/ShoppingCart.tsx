@@ -58,6 +58,10 @@ function Cart(props: IProps) {
         placeOrder(tableID, cartItems.map((product: Product) => { return { "name": product.name, "amount": product.amount, "drink": true } }));
     }
 
+    function displayEuros(cents: Number) {
+        return "€" + cents.toString().slice(0, -2) + "," + cents.toString().slice(-2)
+    }
+
     return (
         <Modal
             onHide={props.onHide}
@@ -94,7 +98,7 @@ function Cart(props: IProps) {
                             </tbody>
                             <div className="d-flex justify-content-between mb-5">
                                 <h5 className="text-uppercase">Totaal</h5>
-                                <h5> {"€" + getTotalPrice()}  </h5>
+                                <h5> {displayEuros(getTotalPrice())}  </h5>
                             </div>
                             <button type="button" className="btn btn-dark btn-block btn-lg" id="btn-order"
                                 data-mdb-ripple-color="dark" onClick={PlaceOrder} >Bestel</button>

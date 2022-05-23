@@ -24,6 +24,10 @@ class Card extends Component<IProps, IState> {
         }
     }
 
+    displayEuros = (cents: Number) => {
+        return "€" + cents.toString().slice(0, -2) + "," + cents.toString().slice(-2)
+    }
+
     render() {
         return (
             <tr>
@@ -34,9 +38,9 @@ class Card extends Component<IProps, IState> {
                         className="img-fluid img-thumbnail" />
                 </td>
                 <td>{this.props.product.name}</td>
-                <td>{"€" + this.props.product.price}</td>
+                <td>{this.displayEuros(this.props.product.price)}</td>
                 <td className="qty"><input type="text" className="form-control" id="input1" onChange={e => this.props.updateAmount(this.props.product, parseInt(e.target.value))} value={this.props.product.amount}></input></td>
-                <td>{"€" + (this.props.product.price * this.props.product.amount)}</td>
+                <td>{this.displayEuros(this.props.product.amount * this.props.product.price)}</td>
                 <td>
                     <FontAwesomeIcon style={{ color: "red" }} icon={faTimes} onClick={() => { this.props.removeProduct(this.props.product) }} />
                 </td>
