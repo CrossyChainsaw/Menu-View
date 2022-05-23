@@ -46,11 +46,8 @@ function Cart(props: IProps) {
     }
 
     function GetTotalItemsAmount() {
-        let amount: number = 0;
-        cartItems.map((product: Product) => {
-            return amount += product.amount;
-        })
-        return amount;
+        const products: Product[] = cookies.products || [];
+        return products.length;
     }
 
     function ChangeAmount(product: Product, amount: number) {
