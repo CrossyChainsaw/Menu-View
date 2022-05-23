@@ -12,7 +12,15 @@ export default function MenuItem(props: IProps) {
 
     function addToProducts() {
         const products: Product[] = cookies.products || [];
-        products.push(props.product)
+        if (products.map(x => x.ID).includes(props.product.ID)) {
+            products.map(p =>
+                p.ID === props.product.ID
+                    ? { ...p, amount: p.amount++ }
+                    : p
+            );
+        } else {
+            products.push(props.product)
+        }
         setCookie('products', JSON.stringify(products), { path: '/' })
     }
 
