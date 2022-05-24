@@ -31,9 +31,9 @@ export default function ShoppingCart(props: IProps) {
         setCookie('products', JSON.stringify(products), { path: '/' })
     }
 
-    function updateAmount(product: Product, amount: Number) {
+    function updateAmount(product: Product, amount: number) {
         let products: Product[] = cookies.products || [];
-        products.map(p =>
+        products = products.map(p =>
             p.ID === product.ID
                 ? { ...p, amount: amount }
                 : p
@@ -73,7 +73,6 @@ export default function ShoppingCart(props: IProps) {
             onHide={props.onHide}
             show={props.show}
             centered
-            size="lg"
             keyboard={true}
         >
 
@@ -100,16 +99,16 @@ export default function ShoppingCart(props: IProps) {
                             </thead>
                             <tbody>
                                 {cartItems.map((product: Product) =>
-                                    <ProductCard key={product.ID} updateAmount={(product: Product, amount: Number) => { updateAmount(product, amount) }} removeProduct={(product: Product) => RemoveProduct(product)} product={product} />
+                                    <ProductCard key={product.ID} updateAmount={(product: Product, amount: number) => { updateAmount(product, amount) }} removeProduct={(product: Product) => RemoveProduct(product)} product={product} />
                                 )}
                             </tbody>
-                            <div className="d-flex justify-content-between mb-5">
-                                <h5 className="text-uppercase">Totaal</h5>
-                                <h5> {displayEuros(getTotalPrice())}  </h5>
-                            </div>
-                            <button type="button" className="btn btn-dark btn-block btn-lg" id="btn-order"
-                                data-mdb-ripple-color="dark" onClick={PlaceOrder} >Bestel</button>
                         </table>
+                        <div className="d-flex justify-content-between mb-5">
+                            <h5 className="text-uppercase">Totaal</h5>
+                            <h5> {displayEuros(getTotalPrice())}  </h5>
+                        </div>
+                        <button type="button" className="btn btn-dark btn-block btn-lg" id="btn-order"
+                            data-mdb-ripple-color="dark" onClick={PlaceOrder} >Bestel</button>
                     </div>
                 </section >
             </ModalBody >
