@@ -15,7 +15,7 @@ interface IState {
     product: Product;
 }
 
-class Card extends Component<IProps, IState> {
+export default class ProductCard extends Component<IProps, IState> {
     constructor(props: any) {
         super(props)
 
@@ -48,7 +48,3 @@ class Card extends Component<IProps, IState> {
         );
     }
 }
-
-export default Card;
-
-// fix update alles op clicks enz

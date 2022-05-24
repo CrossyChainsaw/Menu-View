@@ -10,7 +10,7 @@ interface IProps {
     show: boolean
 }
 
-function Cart(props: IProps) {
+export default function ShoppingCart(props: IProps) {
     const [tableID, setTableID] = useState(0);
     const [cartItems, setCartItems] = useState<Product[]>([]);
     const [cookies, setCookie] = useCookies(['products']);
@@ -100,7 +100,7 @@ function Cart(props: IProps) {
                             </thead>
                             <tbody>
                                 {cartItems.map((product: Product) =>
-                                    <ProductCard updateAmount={(product: Product, amount: Number) => { updateAmount(product, amount) }} removeProduct={(product: Product) => RemoveProduct(product)} product={product} />
+                                    <ProductCard key={product.ID} updateAmount={(product: Product, amount: Number) => { updateAmount(product, amount) }} removeProduct={(product: Product) => RemoveProduct(product)} product={product} />
                                 )}
                             </tbody>
                             <div className="d-flex justify-content-between mb-5">
@@ -116,5 +116,3 @@ function Cart(props: IProps) {
         </Modal >
     );
 }
-
-export default Cart;
