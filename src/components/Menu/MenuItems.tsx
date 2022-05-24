@@ -12,22 +12,35 @@ interface IProps {
     category: Category
 }
 
+let x = 0;
+export function updateSnoopDawg(){
+    x += 1;
+}
+
 export default function Menuitems(props: IProps) {
     const [results, setResults] = useState<Product[]>([]);
+    const [someNum, setSomeNum] = useState<number>(0);
 
     useEffect(() => {
         const api = async () => {
             setResults(await getAllMenuItems());
         };
         api();
-    }, []);
+        console.log('HELLP');
+    }, [someNum]);
 
     return (
         <div className="container">
             <div className="row">
                 {results.filter(product => props.category.ID === product.categoryID).map((product) => {
                     return (
-                        <MenuItem key={uid as unknown as Key} product={product} />
+                        <div>
+                            <MenuItem key={uid as unknown as Key} product={product} setSomeNum={(num) => {
+                                console.log('testing dwaasdw')
+                                return setSomeNum(num)
+                            }}/>
+                            <h1>{someNum}</h1>
+                        </div>
                     );
                 })}
             </div>
