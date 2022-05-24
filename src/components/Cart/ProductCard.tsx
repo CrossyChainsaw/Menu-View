@@ -39,7 +39,7 @@ class Card extends Component<IProps, IState> {
                 </td>
                 <td>{this.props.product.name}</td>
                 <td>{this.displayEuros(this.props.product.price)}</td>
-                <td className="qty"><input type="text" className="form-control" id="input1" onChange={e => this.props.updateAmount(this.props.product, parseInt(e.target.value))} value={this.props.product.amount}></input></td>
+                <td className="qty"><input type="text" className="form-control input-lg" id="input1" onChange={e => this.props.updateAmount(this.props.product, parseInt(e.target.value))} value={this.props.product.amount}></input></td>
                 <td>{this.displayEuros(this.props.product.amount * this.props.product.price)}</td>
                 <td>
                     <FontAwesomeIcon style={{ color: "red" }} icon={faTimes} onClick={() => { this.props.removeProduct(this.props.product) }} />

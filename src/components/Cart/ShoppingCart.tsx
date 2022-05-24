@@ -55,7 +55,13 @@ function Cart(props: IProps) {
     }
 
     function PlaceOrder() {
-        placeOrder(tableID, cartItems.map((product: Product) => { return { "name": product.name, "amount": product.amount, "drink": true } }));
+        placeOrder(tableID, cartItems.map((product: Product) => {
+            return {
+                "name": product.name,
+                "amount": product.amount,
+                "drink": [4, 5].includes(product.categoryID)
+            }
+        }));
     }
 
     function displayEuros(cents: Number) {
@@ -67,6 +73,7 @@ function Cart(props: IProps) {
             onHide={props.onHide}
             show={props.show}
             centered
+            size="lg"
             keyboard={true}
         >
 
