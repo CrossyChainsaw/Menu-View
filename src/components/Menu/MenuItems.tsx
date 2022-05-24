@@ -4,7 +4,7 @@ import { Category } from '../../interfaces/Category';
 import MenuItem from './MenuItem';
 import { getAllMenuItems } from "../../api/productService";
 
-const uid = function () {
+const uid = () => {
     return Date.now().toString(36) + Math.random().toString(36).substr(2);
 }
 
@@ -27,7 +27,7 @@ export default function Menuitems(props: IProps) {
             <div className="row">
                 {results.filter(product => props.category.ID === product.categoryID).map((product) => {
                     return (
-                        <MenuItem key={uid as unknown as Key} product={product} />
+                        <MenuItem key={uid() as unknown as Key} product={product} />
                     );
                 })}
             </div>
