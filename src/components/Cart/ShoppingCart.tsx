@@ -55,13 +55,22 @@ export default function ShoppingCart(props: IProps) {
     }
 
     function PlaceOrder() {
-        placeOrder(tableID, cartItems.map((product: Product) => {
-            return {
-                "name": product.name,
-                "amount": product.amount,
-                "drink": [4, 5].includes(product.categoryID)
-            }
-        }));
+
+        // eslint-disable-next-line no-restricted-globals
+        var proceed = confirm("Are you sure you want to proceed?");
+        if (proceed) {
+
+            placeOrder(tableID, cartItems.map((product: Product) => {
+                return {
+                    "name": product.name,
+                    "amount": product.amount,
+                    "drink": [4, 5].includes(product.categoryID)
+                }
+            }));
+
+            props.onHide();
+            setCookie('products', [], { path: '/' })
+        }
     }
 
     function displayEuros(cents: Number) {
@@ -74,6 +83,7 @@ export default function ShoppingCart(props: IProps) {
             show={props.show}
             centered
             keyboard={true}
+            size="lg"
         >
 
             <Modal.Header closeButton>

@@ -44,7 +44,6 @@ ReactDOM.render(
         </Routes>
       </BrowserRouter>
     </CookiesProvider>
-
   </React.StrictMode>,
   document.getElementById('root')
 );
