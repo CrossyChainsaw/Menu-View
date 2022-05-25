@@ -1,7 +1,7 @@
 import { Card } from 'react-bootstrap';
 import { Product } from '../../interfaces/Product';
 import { useCookies } from 'react-cookie';
-import { removeStock } from '../../api/menuService';
+import { hasStock, removeStock } from '../../api/menuService';
 import './Menu.css'
 import { useState } from 'react';
 import { updateSnoopDawg } from './MenuItems';
@@ -22,19 +22,26 @@ export default function MenuItem(props: IProps) {
     }
 
     let x = 0;
-    function productClick(){
-        props.setSomeNum(x += 1);
-        console.log('stock old: ' + props.product.stock);
-        addToProducts();
-        props.product.stock -= 1;
-        removeStock(props.product);
-    }
+    async function productClick() {
+        var stock = await hasStock(props.product);
+        console.log(stock);
+        if (stock > 0) {
 
+            props.setSomeNum(x += 1);
+            console.log('stock old: ' + props.product.stock);
+            addToProducts();
+            props.product.stock -= 1;
+            removeStock(props.product);
+        }
+        else {
+            alert('out of stock');
+        }
+    }
 
     var classStuff = !props.product.stock ? 'meal-image-effect-out-of-stock' : 'meal-image-effect';
     var buttonStuff = props.product.stock ? false : true;
     return (
-        <div className="col-sm-3">       
+        <div className="col-sm-3">
             <Card className={classStuff}>
                 <img className='card-img-top meal-image' src={props.product.image} alt=""></img>
                 <div className="card-body">

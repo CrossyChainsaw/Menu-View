@@ -13,7 +13,7 @@ interface IProps {
 }
 
 let x = 0;
-export function updateSnoopDawg(){
+export function updateSnoopDawg() {
     x += 1;
 }
 
@@ -38,8 +38,7 @@ export default function Menuitems(props: IProps) {
                             <MenuItem key={uid as unknown as Key} product={product} setSomeNum={(num) => {
                                 console.log('testing dwaasdw')
                                 return setSomeNum(num)
-                            }}/>
-                            <h1>{someNum}</h1>
+                            }} />
                         </div>
                     );
                 })}
