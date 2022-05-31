@@ -1,10 +1,10 @@
 import { Card } from 'react-bootstrap';
 import { Product } from '../../interfaces/Product';
 import { useCookies } from 'react-cookie';
-import { hasStock, removeStock } from '../../api/menuService';
 import './Menu.css'
 import { useState } from 'react';
 import { updateSnoopDawg } from './MenuItems';
+import { getSingleItem, removeStock } from '../../api/menuService'
 
 interface IProps {
     product: Product,
@@ -23,19 +23,19 @@ export default function MenuItem(props: IProps) {
 
     let x = 0;
     async function productClick() {
-        var stock = await hasStock(props.product);
-        console.log(stock);
-        if (stock > 0) {
-
-            props.setSomeNum(x += 1);
-            console.log('stock old: ' + props.product.stock);
+        const product: Product = await getSingleItem(props.product)
+        if (product.stock > 0) {
+            props.setSomeNum(x += 1); // doet niks?
+            console.log('stock old: ' + product.stock);
             addToProducts();
-            props.product.stock -= 1;
-            removeStock(props.product);
+            product.stock -= 1;
+            removeStock(product);
         }
         else {
             alert('out of stock');
         }
+        // update the product so people on the other website see the shit
+        // update stock
     }
 
     var classStuff = !props.product.stock ? 'meal-image-effect-out-of-stock' : 'meal-image-effect';

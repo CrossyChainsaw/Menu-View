@@ -18,15 +18,9 @@ export const removeStock = async (product: Product) => {
     return json;
 }
 
-export const hasStock = async (product: Product) => {
-    const data = await fetch('http://localhost:8082/api/v1/product/' + product.id);
-    const json = await data.json();
-    console.log(json);
-    return json.stock;
-}
-
 export const getSingleItem = async (product: Product) => {
     const data = await fetch('http://localhost:8082/api/v1/product/' + product.id);
     const json = await data.json();
-    return json;
+    const product1: Product = json;
+    return product1;
 }
