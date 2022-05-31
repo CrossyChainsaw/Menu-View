@@ -2,16 +2,20 @@ import { Component } from 'react';
 import { Product } from '../../interfaces/Product';
 import './ProductCard.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 interface IProps {
     product: Product
+    removeProduct(product: Product): void
+    updateAmount(product: Product, amount: Number): void
 }
 
 interface IState {
     product: Product;
 }
 
-class Card extends Component<IProps, IState> {
+export default class ProductCard extends Component<IProps, IState> {
     constructor(props: any) {
         super(props)
 
@@ -20,37 +24,27 @@ class Card extends Component<IProps, IState> {
         }
     }
 
+    displayEuros = (cents: Number) => {
+        return "€" + cents.toString().slice(0, -2) + "," + cents.toString().slice(-2)
+    }
+
     render() {
         return (
-            <div>
-                <div className="row mb-4 d-flex justify-content-between align-items-center" >
-                    <div className="col-md-2 col-lg-2 col-xl-2">
-                        <img
-                            alt=''
-                            src={this.props.product.image}
-                            className="img-fluid rounded-3" />
-                    </div>
-                    <div className="col-md-3 col-lg-3 col-xl-3">
-                        <h6 >{this.props.product.name}</h6>
-                    </div>
-                    <div className="col-md-3 col-lg-3 col-xl-2 d-flex">
-                        <button className="btn btn-light" onClick={() => { }}>-</button>
-
-                        <input id="form1" min="0" name="quantity" value={this.props.product.amount} disabled={true} className="form-control form-control-sm-6" />
-
-                        <button className="btn btn-light" onClick={() => { }}>+</button>
-                    </div>
-                    <div className="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                        <h6 className="mb-0">€ {this.props.product.price}</h6>
-                    </div>
-                </div>
-                <hr className="my-4" />
-
-            </div >
+            <tr>
+                <td className="w-25">
+                    <img
+                        alt=''
+                        src={this.props.product.image}
+                        className="img-fluid img-thumbnail" />
+                </td>
+                <td>{this.props.product.name}</td>
+                <td>{this.displayEuros(this.props.product.price)}</td>
+                <input type="number" className="form-control input-lg" id="input1" onChange={e => { this.props.updateAmount(this.props.product, parseInt(e.target.value)) }} value={this.props.product.amount}></input>
+                <td>{this.displayEuros(this.props.product.amount * this.props.product.price)}</td>
+                <td>
+                    <FontAwesomeIcon style={{ color: "red" }} icon={faTimes} onClick={() => { this.props.removeProduct(this.props.product) }} />
+                </td>
+            </tr>
         );
     }
 }
-
-export default Card;
-
-// fix update alles op clicks enz

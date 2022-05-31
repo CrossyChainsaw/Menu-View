@@ -10,10 +10,10 @@ interface IProps {
     show: boolean
 }
 
-function Cart(props: IProps) {
+export default function ShoppingCart(props: IProps) {
     const [tableID, setTableID] = useState(0);
     const [cartItems, setCartItems] = useState<Product[]>([]);
-    const [cookies] = useCookies(['products']);
+    const [cookies, setCookie] = useCookies(['products']);
 
     useEffect(() => {
         setTableID(parseInt(document.cookie.split('; ').reduce((r, v) => {
@@ -25,12 +25,20 @@ function Cart(props: IProps) {
         setCartItems(products);
     }, [cookies.products]);
 
-    function AddProduct(product: Product) {
-        setCartItems([...cartItems, product]);
+    function RemoveProduct(product: Product) {
+        let products: Product[] = cookies.products || [];
+        products = products.filter(x => x.ID !== product.ID);
+        setCookie('products', JSON.stringify(products), { path: '/' })
     }
 
-    function RemoveProduct(product: Product) {
-        setCartItems(cartItems.filter(x => x.id !== product.id));
+    function updateAmount(product: Product, amount: number) {
+        let products: Product[] = cookies.products || [];
+        products = products.map(p =>
+            p.ID === product.ID
+                ? { ...p, amount: amount }
+                : p
+        );
+        setCookie('products', JSON.stringify(products), { path: '/' })
     }
 
     function getTotalPrice() {
@@ -41,28 +49,23 @@ function Cart(props: IProps) {
         return total;
     }
 
-    function LogProducts() {
-        console.log(cartItems);
-    }
-
     function GetTotalItemsAmount() {
         const products: Product[] = cookies.products || [];
         return products.length;
     }
 
-    function ChangeAmount(product: Product, amount: number) {
-
-    }
-
     function PlaceOrder() {
-        placeOrder(tableID, cartItems.map((product: Product) => { return { "name": product.name, "amount": product.amount, "drink": true } }));
+        placeOrder(tableID, cartItems.map((product: Product) => {
+            return {
+                "name": product.name,
+                "amount": product.amount,
+                "drink": [4, 5].includes(product.categoryID)
+            }
+        }));
     }
 
-    function CreateCookie(cname: string, cvalue: number, hours: number) {
-        const d = new Date();
-        d.setTime(d.getTime() + (hours * 24 * 60 * 60 * 1000 + 7200000));
-        let expires = "expires=" + d.toUTCString();
-        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    function displayEuros(cents: Number) {
+        return "€" + cents.toString().slice(0, -2) + "," + cents.toString().slice(-2)
     }
 
     return (
@@ -83,33 +86,32 @@ function Cart(props: IProps) {
                 <section>
                     <h6 className="mb-0 text-muted">{GetTotalItemsAmount()} items</h6>
                     <div className="card-body p-0">
-                        <div className="row g-0">
-                            <div className="col-lg-8">
-                                <div className="p-5">
-                                    {cartItems.map((product: Product) =>
-                                        <ProductCard product={product} />
-                                    )}
-                                    <div className="d-flex justify-content-between mb-5">
-                                        <h5 className="text-uppercase">Totaal</h5>
-                                        <h5>€  {getTotalPrice()}  </h5>
-                                    </div>
-                                    <button type="button" className="btn btn-dark btn-block btn-lg" id="btn-order"
-                                        data-mdb-ripple-color="dark" onClick={PlaceOrder} >Bestel</button>
-                                </div>
-                            </div>
+                        <table className="table table-image">
+                            <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">Product</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Qty</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {cartItems.map((product: Product) =>
+                                    <ProductCard key={product.ID} updateAmount={(product: Product, amount: number) => { updateAmount(product, amount) }} removeProduct={(product: Product) => RemoveProduct(product)} product={product} />
+                                )}
+                            </tbody>
+                        </table>
+                        <div className="d-flex justify-content-between mb-5">
+                            <h5 className="text-uppercase">Totaal</h5>
+                            <h5> {displayEuros(getTotalPrice())}  </h5>
                         </div>
+                        <button type="button" className="btn btn-dark btn-block btn-lg" id="btn-order"
+                            data-mdb-ripple-color="dark" onClick={PlaceOrder} >Bestel</button>
                     </div>
-                </section>
-            </ModalBody>
-
-            <Modal.Footer className="text-center p-5">
-                <div className="mb-3">
-                    <span className="d-block font-weight-semi-bold">Order Total</span>
-                    <span className="d-block">$56.99</span>
-                </div>
-            </Modal.Footer>
+                </section >
+            </ModalBody >
         </Modal >
     );
 }
-
-export default Cart;

@@ -17,9 +17,9 @@ export default function App() {
       <main role="main" className="container">
         <CategoryItems></CategoryItems>
       </main>
-      <footer>
+      <footer style={{ paddingTop: 50 }}>
         <div className="container text-center">
-          <p>&#169; Mike van den Hoef</p>
+          <p>&#169; Team Fontys</p>
         </div>
       </footer></>
   )

@@ -4,7 +4,7 @@ import { Category } from '../../interfaces/Category';
 import MenuItem from './MenuItem';
 import { getAllMenuItems } from "../../api/productService";
 
-const uid = function () {
+const uid = () => {
     return Date.now().toString(36) + Math.random().toString(36).substr(2);
 }
 

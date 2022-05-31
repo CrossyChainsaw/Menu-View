@@ -32,3 +32,9 @@
         border-bottom-right-radius: 16px;
     }
 }
+
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
