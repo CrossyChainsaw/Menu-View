@@ -2,11 +2,11 @@ import React from "react";
 import { Product } from "../interfaces/Product";
 
 export const removeStock = async (product: Product) => {
-    const data = await fetch('http://localhost:8082/api/v1/productput/' + product.id, {
+    const data = await fetch('http://localhost:8082/api/v1/product/' + product.ID, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            "id": product.id,
+            "id": product.ID,
             "categoryid": product.categoryID,
             "image": product.image,
             "name": product.name,
@@ -18,9 +18,15 @@ export const removeStock = async (product: Product) => {
     return json;
 }
 
-export const getSingleItem = async (product: Product) => {
-    const data = await fetch('http://localhost:8082/api/v1/product/' + product.id);
+export const hasStock = async (product: Product) => {
+    const data = await fetch('http://localhost:8082/api/v1/product/' + product.ID);
     const json = await data.json();
-    const product1: Product = json;
-    return product1;
+    console.log(json);
+    return json.stock;
+}
+
+export const getSingleItem = async (product: Product) => {
+    const data = await fetch('http://localhost:8082/api/v1/product/' + product.ID);
+    const json = await data.json();
+    return json;
 }

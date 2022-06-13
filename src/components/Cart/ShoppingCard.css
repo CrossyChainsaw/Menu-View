@@ -1,3 +1,13 @@
 .modal-backdrop {
     opacity: 0.8 !important;
 }
+
+body {
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
+}
+
+.modal {
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
+}

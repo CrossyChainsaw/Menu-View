@@ -1,26 +1,26 @@
 import React, { useState } from 'react';
 import './App.css';
 import CategoryItems from './components/Category/categoryItems';
-import Header from './components/header/header';
+import Header from './components/Layout/header';
 import ShoppingCart from './components/Cart/ShoppingCart';
+import PayingMenu from './components/Paying/PayingMenu';
+import PayingMethods from './components/Paying/PayingMethods';
+import Footer from './components/Layout/footer';
 
 
 export default function App() {
-  const [show, setShow] = useState<boolean>(false);
+  const [showCart, setShowCart] = useState<boolean>(false);
+  const [showPayingMenu, setShowPayingMenu] = useState<boolean>(false);
+  const [showPayingMethods, setShowPayingMethods] = useState<boolean>(false);
 
   return (
     <>
-      <ShoppingCart show={show} onHide={() => setShow(false)}></ShoppingCart>
-      <header>
-        <Header openModal={() => setShow(true)}></Header>
-      </header>
-      <main role="main" className="container">
-        <CategoryItems></CategoryItems>
-      </main>
-      <footer style={{ paddingTop: 50 }}>
-        <div className="container text-center">
-          <p>&#169; Team Fontys</p>
-        </div>
-      </footer></>
+      <ShoppingCart show={showCart} onHide={() => setShowCart(false)}></ShoppingCart>
+      <PayingMenu show={showPayingMenu} onHide={() => setShowPayingMenu(false)} onPay={() => setShowPayingMethods(true)}></PayingMenu>
+      <PayingMethods show={showPayingMethods} onHide={() => setShowPayingMethods(false)}></PayingMethods>
+      <Header openCartModal={() => setShowCart(true)} openPayModal={() => setShowPayingMenu(true)}></Header>
+      <CategoryItems></CategoryItems>
+      <Footer></Footer>
+    </>
   )
 }
