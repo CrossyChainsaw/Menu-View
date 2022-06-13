@@ -3,6 +3,9 @@ import { Product } from '../../interfaces/Product';
 import { useCookies } from 'react-cookie';
 import { removeStock } from '../../api/menuService';
 import './Menu.css'
+import { useState } from 'react';
+import { updateSnoopDawg } from './MenuItems';
+import { getSingleItem, removeStock } from '../../api/menuService'
 
 interface IProps {
     product: Product,
@@ -27,6 +30,27 @@ export default function MenuItem(props: IProps) {
         }
         setCookie('products', JSON.stringify(products), { path: '/' })
     }
+
+
+    let x = 0;
+    async function productClick() {
+        const product: Product = await getSingleItem(props.product)
+        if (product.stock > 0) {
+            props.setSomeNum(x += 1); // doet niks?
+            console.log('stock old: ' + product.stock);
+            addToProducts();
+            product.stock -= 1;
+            removeStock(product);
+        }
+        else {
+            alert('out of stock');
+        }
+        // update the product so people on the other website see the shit
+        // update stock
+    }
+
+    var classStuff = !props.product.stock ? 'meal-image-effect-out-of-stock' : 'meal-image-effect';
+    var buttonStuff = props.product.stock ? false : true;
 
     function displayEuros(cents: Number) {
         return "€" + cents.toString().slice(0, -2) + "," + cents.toString().slice(-2)

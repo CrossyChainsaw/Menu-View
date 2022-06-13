@@ -13,6 +13,11 @@ interface IProps {
     category: Category
 }
 
+let x = 0;
+export function updateSnoopDawg() {
+    x += 1;
+}
+
 export default function Menuitems(props: IProps) {
     const [results, setResults] = useState<Product[]>([]);
     const [someNum, setSomeNum] = useState<number>(0);
