@@ -1,11 +1,15 @@
 import { Card } from 'react-bootstrap';
 import { Product } from '../../interfaces/Product';
 import { useCookies } from 'react-cookie';
+import { removeStock } from '../../api/menuService';
 import './Menu.css'
 
 interface IProps {
-    product: Product
+    product: Product,
+    setSomeNum(num: number): void,
+    addedProduct(): void
 }
+
 
 export default function MenuItem(props: IProps) {
     const [cookies, setCookie] = useCookies(['products']);
@@ -28,9 +32,27 @@ export default function MenuItem(props: IProps) {
         return "€" + cents.toString().slice(0, -2) + "," + cents.toString().slice(-2)
     }
 
+    let x = 0;
+    async function productClick() {
+        if (props.product.stock > 0) {
+
+            props.setSomeNum(x += 1);
+            console.log('stock old: ' + props.product.stock);
+            addToProducts();
+            props.product.stock -= 1;
+            removeStock(props.product);
+        }
+        else {
+            alert('out of stock');
+        }
+    }
+
+    var classStuff = !props.product.stock ? 'meal-image-effect-out-of-stock' : 'meal-image-effect';
+    var buttonStuff = props.product.stock ? false : true;
+
     return (
         <div className="col-sm-3">
-            <Card className='meal-image-effect'>
+            <Card className={classStuff}>
                 <img className='card-img-top meal-image' src={props.product.image} alt=""></img>
                 <div className="card-body">
                     <div className="wrapper-new2">
@@ -38,10 +60,12 @@ export default function MenuItem(props: IProps) {
                         <span className="span-white">{displayEuros(props.product.price)}
                         </span>
                     </div>
-
-                    <button className="btn btn-red btn-md btn-block" onClick={() => { addToProducts() }}>Order</button>
+                    <button disabled={buttonStuff} className="btn btn-red btn-md btn-block" onClick={() => { productClick(); props.addedProduct() }}>Bestel</button>
                 </div>
             </Card >
         </div >
     );
 }
+
+// click op menuitem refresht page
+// page refresh moet opnieuw waarden ophalen

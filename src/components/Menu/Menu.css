@@ -16,6 +16,10 @@
     transition: filter 0.4s, transform 0.4s;
 }
 
+.meal-image-effect-out-of-stock {
+    opacity: 50%;
+}
+
 .wrapper-new1,
 .wrapper-new2 {
     display: flex;

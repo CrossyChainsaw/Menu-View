@@ -36,11 +36,6 @@
 tr {
     display: table-row;
     vertical-align: inherit;
-    border-bottom-width: thin !important;
     border-color: inherit;
-}
-
-#input1 {
-    outline: 0;
-    border-width: 0 0 2px;
+    border-bottom-width: thin !important;
 }

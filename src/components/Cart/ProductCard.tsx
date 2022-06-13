@@ -45,7 +45,7 @@ export default class ProductCard extends Component<IProps, IState> {
                 </td>
                 <td>{this.props.product.name}</td>
                 <td>{this.displayEuros(this.props.product.price)}</td>
-                <input min={1} max={20} type="number" className="form-control input-lg" id="input1" onChange={this.handleChange} value={this.props.product.amount}></input>
+                <input min={1} max={20} type="number" className="input-lg" id="input1" onChange={this.handleChange} value={this.props.product.amount}></input>
                 <td>{this.displayEuros(this.props.product.amount * this.props.product.price)}</td>
                 <td>
                     <FontAwesomeIcon style={{ color: "red" }} icon={faTimes} onClick={() => { this.props.removeProduct(this.props.product) }} />

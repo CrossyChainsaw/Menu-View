@@ -22,10 +22,12 @@ export default function CategoryItems() {
             {
                 categoryResult.map((category) => {
                     return (
-                        <div key={category.ID} className="mt-4">
-                            <CategoryItem key={category.ID} ID={category.ID} name={category.name} />
-                            <MenuItems key={uid() as unknown as Key} category={category}></MenuItems>
-                        </div>
+                        <main role="main" className="container">
+                            <div key={category.ID} className="mt-4">
+                                <CategoryItem key={category.ID} ID={category.ID} name={category.name} />
+                                <MenuItems key={uid() as unknown as Key} category={category}></MenuItems>
+                            </div>
+                        </main>
                     );
                 })}
         </div>

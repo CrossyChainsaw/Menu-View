@@ -2,18 +2,18 @@ import { useEffect, useState } from 'react';
 import ProductCard from './ProductCard';
 import { Product } from '../../interfaces/Product';
 import { Modal, ModalBody } from 'react-bootstrap';
-import { placeOrder } from '../../api/productService';
 import { useCookies } from 'react-cookie';
 
 interface IProps {
     onHide(): void,
-    show: boolean
+    show: boolean,
+    onPay(): void
 }
 
-export default function ShoppingCart(props: IProps) {
+export default function PayingMenu(props: IProps) {
     const [tableID, setTableID] = useState(0);
     const [cartItems, setCartItems] = useState<Product[]>([]);
-    const [cookies, setCookie] = useCookies(['products']);
+    const [cookies] = useCookies(['products']);
 
     useEffect(() => {
         setTableID(parseInt(document.cookie.split('; ').reduce((r, v) => {
@@ -24,22 +24,6 @@ export default function ShoppingCart(props: IProps) {
         const products: Product[] = cookies.products || [];
         setCartItems(products);
     }, [cookies.products]);
-
-    function RemoveProduct(product: Product) {
-        let products: Product[] = cookies.products || [];
-        products = products.filter(x => x.ID !== product.ID);
-        setCookie('products', JSON.stringify(products), { path: '/' })
-    }
-
-    function updateAmount(product: Product, amount: number) {
-        let products: Product[] = cookies.products || [];
-        products = products.map(p =>
-            p.ID === product.ID
-                ? { ...p, amount: amount }
-                : p
-        );
-        setCookie('products', JSON.stringify(products), { path: '/' })
-    }
 
     function getTotalPrice() {
         let total: number = 0;
@@ -52,25 +36,6 @@ export default function ShoppingCart(props: IProps) {
     function GetTotalItemsAmount() {
         const products: Product[] = cookies.products || [];
         return products.length;
-    }
-
-    function PlaceOrder() {
-
-        // eslint-disable-next-line no-restricted-globals
-        var proceed = confirm("Are you sure you want to proceed?");
-        if (proceed) {
-
-            placeOrder(tableID, cartItems.map((product: Product) => {
-                return {
-                    "name": product.name,
-                    "amount": product.amount,
-                    "drink": [4, 5].includes(product.categoryID)
-                }
-            }));
-
-            props.onHide();
-            setCookie('products', [], { path: '/' })
-        }
     }
 
     function displayEuros(cents: Number) {
@@ -99,17 +64,15 @@ export default function ShoppingCart(props: IProps) {
                         <table className="table table-image">
                             <thead>
                                 <tr>
-                                    <th scope="col"></th>
                                     <th scope="col">Product</th>
                                     <th scope="col">Prijs</th>
-                                    <th scope="col">Hoeveelheid</th>
+                                    <th scope="col">Aantal</th>
                                     <th scope="col">Totaal</th>
-                                    <th scope="col">Verwijder</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {cartItems.map((product: Product) =>
-                                    <ProductCard key={product.ID} updateAmount={(product: Product, amount: number) => { updateAmount(product, amount) }} removeProduct={(product: Product) => RemoveProduct(product)} product={product} />
+                                    <ProductCard key={product.ID} product={product} />
                                 )}
                             </tbody>
                         </table>
@@ -118,7 +81,7 @@ export default function ShoppingCart(props: IProps) {
                             <h5> {displayEuros(getTotalPrice())}  </h5>
                         </div>
                         <button type="button" className="btn btn-dark btn-block btn-lg" id="btn-order"
-                            data-mdb-ripple-color="dark" onClick={PlaceOrder} >Bestel</button>
+                            data-mdb-ripple-color="dark" onClick={() => { props.onPay(); props.onHide(); }}>Betaal</button>
                     </div>
                 </section >
             </ModalBody >
